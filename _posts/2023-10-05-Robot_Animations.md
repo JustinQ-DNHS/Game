@@ -15,11 +15,7 @@ type: tangible
         <!-- Radio type inputs for selecting only one at a time, and also switches selected animation -->
         <div id="controls"> 
             <input type="radio" name="animation" id="running" checked>
-            <label for="running">Running</label><br>
-            <input type="radio" name="animation" id="stamping">
-            <label for="stamping">Stamping</label><br>
-            <input type="radio" name="animation" id="test">
-            <label for="test">Test</label>
+            <label for="running">Idle</label><br>
         </div>
     </div>
 </body>
@@ -30,9 +26,10 @@ type: tangible
         // Names the parameters of all canvases on the page, using the `get.ElementById`
         const canvas = document.getElementById('spriteContainer');
         const ctx = canvas.getContext('2d');
-        const SPRITE_WIDTH = 200;
-        const SPRITE_HEIGHT = 200;
-        const SCALE_FACTOR = 2;
+        const SPRITE_WIDTH = 798;
+        const SPRITE_HEIGHT = 569;
+        const SCALE_FACTOR = 1;
+        const FRAME_RATE = 30;
         canvas.width = SPRITE_WIDTH * SCALE_FACTOR;
         canvas.height = SPRITE_HEIGHT * SCALE_FACTOR;
 
@@ -40,14 +37,14 @@ type: tangible
             constructor() {
                 // Describes parameters of sprite based off the Canvas parameters, also uing the `getElementById` to reference it.
                 this.image = document.getElementById("horseSprite");
-                this.width = 300;
-                this.height = 600;
-                this.x = 0;
-                this.y = 0;
+                this.width = 798;
+                this.height = 721;
+                this.x = 100;
+                this.y = -152;
                 this.scale = SCALE_FACTOR;
-                this.maxFrame = 10;
-                this.frameX = 0.5;
-                this.frameY = 0.5;
+                this.maxFrame = 20;
+                this.frameX = 0;
+                this.frameY = 0;
             }
             draw(context) {
                 context.drawImage(
@@ -64,7 +61,7 @@ type: tangible
             }
             update() {
                 if (this.frameX < this.maxFrame) {
-                    this.frameX = this.frameX + 2;
+                    this.frameX += 1;
                 } else {
                     this.frameX = 0;
                 }
@@ -81,17 +78,14 @@ type: tangible
                     case 'running':
                         horse.frameY = 0;
                         horse.frameX = 0;
-                        horse.maxFrame = 5;
                         break;
                     case 'stamping':
                         horse.frameY = 1;
                         hose.frameX = 0;
-                        horse.maxFrame = 5;
                         break;
                     case 'test':
                         horse.frameY = 2;
                         horse.frameX = 0;
-                        horse.maxFrame = 2;
                         break;
                     default:
                         break;
@@ -101,7 +95,6 @@ type: tangible
 
         function animate() { //Creates a function called animate that is run after everything else is done
             // Creates a variable callled currentFrameRate which will equal the slider.value and make it into a whole number / integer
-            const currentFrameRate = parseInt(slider.value, 10);
             // A timeout that runs a function, timeout creating the delay between each frame. Calculated by 1 second divided by currentFrameRate
             setTimeout(function () {
                 // Clears the canvas by replacing everysingle pixel with a transparent pixel
@@ -112,20 +105,9 @@ type: tangible
                 horse.update();
                 // Reruns the animate function at the same consistency as the browsers refresh rate
                 requestAnimationFrame(animate);
-            }, 1000 / currentFrameRate);
+            }, 1000 / FRAME_RATE);
         }
         // This is the animate function being run at the start of the page, otherwise it would not start.
         animate();
     });
-    // Creates a variable called slider that matches the current value of objects with the id of `frameSlide` the only one of which being `<input type="range">` object
-    var slider = document.getElementById("frameSlide"); 
-    // Creates a variable called output that matches current value of the frameRate variable 
-    var output = document.getElementById("frameRate");
-    // Sets the inner HTML or content of the output variable to equal the slider's current value
-    output.innerHTML = slider.value;
-    // Creates a if statement that runs a function whenever the slider is interacted with
-    slider.oninput = function() {
-        //Changes the innerHTML of the output to the current value of the slider
-        output.innerHTML = this.value;
-    }
 </script>
