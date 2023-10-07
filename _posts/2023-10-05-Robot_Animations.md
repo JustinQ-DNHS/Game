@@ -10,7 +10,7 @@ type: tangible
     <div>
         <!-- Within the base div is a canvas. An HTML canvas is used only for graphics. It allows the user to access some basic functions related to the image created on the canvas (including animation) -->
         <canvas id="spriteContainer"> 
-            <img id="horseSprite" src="{{site.baseurl}}/images/robotIdle.png">
+            <img id="horseSprite" src="{{site.baseurl}}/images/image.png">
         </canvas>
         <!-- Radio type inputs for selecting only one at a time, and also switches selected animation -->
         <div id="controls"> 
