@@ -89,6 +89,12 @@ type: tangible
                         robot.maxFrame = 20;
                         robot.x = 100;
                         break;
+                    case 'run':
+                        robot.frameY = 4;
+                        robot.frameX = 0;
+                        robot.maxFrame = 18;
+                        robot.x = 100;
+                        break;
                     case 'jump':
                         robot.frameY = 1;
                         robot.frameX = 0;
@@ -106,12 +112,6 @@ type: tangible
                         robot.frameX = 0;
                         robot.maxFrame = 9;
                         robot.x = 50;
-                        break;
-                    case 'run':
-                        robot.frameY = 4;
-                        robot.frameX = 0;
-                        robot.maxFrame = 18;
-                        robot.x = 100;
                         break;
                     default:
                         break;
