@@ -18,6 +18,8 @@ type: tangible
             <label for="running">Idle</label><br>
             <input type="radio" name="animation" id="run">
             <label for="run">Run</label><br>
+            <input type="radio" name="animation" id="jump">
+            <label for="jump">Jump</label><br>
             <input type="radio" name="animation" id="ko">
             <label for="ko">KO</label><br>
             <input type="radio" name="animation" id="punch">
@@ -33,7 +35,7 @@ type: tangible
         const canvas = document.getElementById('spriteContainer');
         const ctx = canvas.getContext('2d');
         const SPRITE_WIDTH = 798;
-        const SPRITE_HEIGHT = 569;
+        const SPRITE_HEIGHT = 721;
         const SCALE_FACTOR = 1;
         const FRAME_RATE = 30;
         canvas.width = SPRITE_WIDTH * SCALE_FACTOR;
@@ -46,7 +48,7 @@ type: tangible
                 this.width = 798;
                 this.height = 721;
                 this.x = 100;
-                this.y = -152;
+                this.y = 0;
                 this.scale = SCALE_FACTOR;
                 this.maxFrame = 20;
                 this.frameX = 0;
@@ -87,23 +89,29 @@ type: tangible
                         robot.maxFrame = 20;
                         robot.x = 100;
                         break;
-                    case 'run':
-                        robot.frameY = 6;
+                    case 'jump':
+                        robot.frameY = 1;
                         robot.frameX = 0;
-                        robot.maxFrame = 18;
+                        robot.maxFrame = 32;
                         robot.x = 100;
                         break;
                     case 'ko':
-                        robot.frameY = 4;
+                        robot.frameY = 2;
                         robot.frameX = 0;
                         robot.maxFrame = 40;
                         robot.x = 100;
                         break;
                     case 'punch':
-                        robot.frameY = 5;
+                        robot.frameY = 3;
                         robot.frameX = 0;
                         robot.maxFrame = 9;
                         robot.x = 50;
+                        break;
+                    case 'run':
+                        robot.frameY = 4;
+                        robot.frameX = 0;
+                        robot.maxFrame = 18;
+                        robot.x = 100;
                         break;
                     default:
                         break;
