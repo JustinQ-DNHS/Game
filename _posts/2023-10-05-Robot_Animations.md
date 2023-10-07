@@ -10,12 +10,18 @@ type: tangible
     <div>
         <!-- Within the base div is a canvas. An HTML canvas is used only for graphics. It allows the user to access some basic functions related to the image created on the canvas (including animation) -->
         <canvas id="spriteContainer"> 
-            <img id="horseSprite" src="{{site.baseurl}}/images/image.png">
+            <img id="robotSprite" src="{{site.baseurl}}/images/robot.png">
         </canvas>
         <!-- Radio type inputs for selecting only one at a time, and also switches selected animation -->
         <div id="controls"> 
-            <input type="radio" name="animation" id="running" checked>
+            <input type="radio" name="animation" id="idle" checked>
             <label for="running">Idle</label><br>
+            <input type="radio" name="animation" id="run">
+            <label for="run">Run</label><br>
+            <input type="radio" name="animation" id="ko">
+            <label for="ko">KO</label><br>
+            <input type="radio" name="animation" id="punch">
+            <label for="punch">Punch</label><br>
         </div>
     </div>
 </body>
@@ -33,10 +39,10 @@ type: tangible
         canvas.width = SPRITE_WIDTH * SCALE_FACTOR;
         canvas.height = SPRITE_HEIGHT * SCALE_FACTOR;
 
-        class Horse {
+        class Robot {
             constructor() {
                 // Describes parameters of sprite based off the Canvas parameters, also uing the `getElementById` to reference it.
-                this.image = document.getElementById("horseSprite");
+                this.image = document.getElementById("robotSprite");
                 this.width = 798;
                 this.height = 721;
                 this.x = 100;
@@ -68,24 +74,36 @@ type: tangible
             }
         }
 
-        const horse = new Horse();
+        const robot = new Robot();
         // Add event listener to the parent container for event delegation
         const controls = document.getElementById('controls');
         controls.addEventListener('click', function (event) {
             if (event.target.tagName === 'INPUT') {
                 const selectedAnimation = event.target.id;
                 switch (selectedAnimation) {
-                    case 'running':
-                        horse.frameY = 0;
-                        horse.frameX = 0;
+                    case 'idle':
+                        robot.frameY = 0;
+                        robot.frameX = 0;
+                        robot.maxFrame = 20;
+                        robot.x = 100;
                         break;
-                    case 'stamping':
-                        horse.frameY = 1;
-                        hose.frameX = 0;
+                    case 'run':
+                        robot.frameY = 6;
+                        robot.frameX = 0;
+                        robot.maxFrame = 18;
+                        robot.x = 100;
                         break;
-                    case 'test':
-                        horse.frameY = 2;
-                        horse.frameX = 0;
+                    case 'ko':
+                        robot.frameY = 4;
+                        robot.frameX = 0;
+                        robot.maxFrame = 40;
+                        robot.x = 100;
+                        break;
+                    case 'punch':
+                        robot.frameY = 5;
+                        robot.frameX = 0;
+                        robot.maxFrame = 9;
+                        robot.x = 50;
                         break;
                     default:
                         break;
@@ -100,9 +118,9 @@ type: tangible
                 // Clears the canvas by replacing everysingle pixel with a transparent pixel
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 // Runs the draw function within the horse class creating the horse
-                horse.draw(ctx);
+                robot.draw(ctx);
                 // Runs the update function, moving the frame of the horse over 1
-                horse.update();
+                robot.update();
                 // Reruns the animate function at the same consistency as the browsers refresh rate
                 requestAnimationFrame(animate);
             }, 1000 / FRAME_RATE);
