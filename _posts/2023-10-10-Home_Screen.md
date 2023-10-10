@@ -3,12 +3,16 @@
     #canvas {
         margin: 0;
         border: 4px solid black;
-        background-image: url("{{site.baseurl}}/images/background.jpg");
         background-size: cover;
     }
 </style>
 
-<canvas id='canvas'></canvas>
+<div id="setting">
+    <canvas id='canvas'></canvas>
+</div>
+<div>
+    <button class="button" onclick="switchText()">Click Me</button>
+</div>
 
 <script>
     let x = 0;
@@ -143,6 +147,7 @@
 </script>
 
 <button class="gravity" onclick="switchGravity()">Change Gravity</button>
+
 <script>
     function switchGravity() {
         if (gravity === 1.5) {
@@ -151,4 +156,15 @@
             gravity = 1.5;
         }
     }
+// Setting Swap
+  function switchText() {
+    let textDisplay = document.getElementById("setting");
+    let currentText = textDisplay.innerHTML;
+
+    if (currentText === "<canvas id='canvas'></canvas>") {
+        textDisplay.innerHTML = "<p>Choose your fighter!</p>";
+    } else {
+        textDisplay.innerHTML = "<canvas id='canvas'></canvas>";
+    }
+}
 </script>
