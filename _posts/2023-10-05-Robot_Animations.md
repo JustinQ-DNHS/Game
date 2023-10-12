@@ -9,13 +9,16 @@ type: tangible
 <body>
     <div>
         <!-- Within the base div is a canvas. An HTML canvas is used only for graphics. It allows the user to access some basic functions related to the image created on the canvas (including animation) -->
-        <canvas id="spriteContainer"> 
+        <canvas id="spriteContainer" style="filter: invert(100%);"> 
             <img id="robotSprite" src="{{site.baseurl}}/images/robotSpritesheet.png">
         </canvas>
         <!-- Radio type inputs for selecting only one at a time, and also switches selected animation -->
         <div id="controls"> 
             <input type="radio" name="animation" id="idle" checked>
-            <label for="running">Idle</label><br>
+            <label for="running">Idle</label>
+            <!-- Invert Button -->
+            <button class="button" onclick="invert()" style="margin-left:50px">Invert</button><br>
+            <!-- End Invert Button -->
             <input type="radio" name="animation" id="run">
             <label for="run">Run</label><br>
             <input type="radio" name="animation" id="jump">
@@ -136,4 +139,20 @@ type: tangible
         // This is the animate function being run at the start of the page, otherwise it would not start.
         animate();
     });
+</script>
+<script>
+    let inverted = false;
+
+    function invert() {
+        const canvas = document.getElementById("spriteContainer")
+        
+        if (inverted) {
+            canvas.style.filter = "invert(100%)";
+        }
+        else {
+            canvas.style.filter = "invert(0%)";
+        }
+
+        inverted = !inverted
+    }
 </script>
