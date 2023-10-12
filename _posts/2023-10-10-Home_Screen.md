@@ -7,11 +7,13 @@
     }
 </style>
 
-<div id="setting">
-    <canvas id='canvas'></canvas>
+<div style="text-align:center">
+    <button class="button" onclick="switchText()">Settings</button>
 </div>
-<div>
-    <button class="button" onclick="switchText()">Click Me</button>
+<br>
+<div id="setting" style="text-align:center">
+    <canvas id="canvas"></canvas>
+    <p style="display: none;">Choose your fighter!</p>
 </div>
 
 <script>
@@ -101,7 +103,7 @@
                 keys.left.pressed = true;
                 break;
             case 83:
-            case 38:
+            case 40:
                 console.log('down');
                 break;
             case 68:
@@ -110,7 +112,7 @@
                 keys.right.pressed = true;
                 break;
             case 87:
-            case 40:
+            case 38:
                 console.log('up');
                 if (player.velocity.y === 0) {
                     player.velocity.y -= 20;
@@ -127,7 +129,7 @@
                 keys.left.pressed = false;
                 break;
             case 83:
-            case 38:
+            case 40:
                 console.log('down');
                 break;
             case 68:
@@ -136,7 +138,7 @@
                 keys.right.pressed = false;
                 break;
             case 87:
-            case 40:
+            case 38:
                 console.log('up');
                 if (player.velocity.y === 0) {
                     player.velocity.y = -20;
@@ -157,14 +159,20 @@
         }
     }
 // Setting Swap
-  function switchText() {
-    let textDisplay = document.getElementById("setting");
-    let currentText = textDisplay.innerHTML;
+let canvasVisible = true;
 
-    if (currentText === "<canvas id='canvas'></canvas>") {
-        textDisplay.innerHTML = "<p>Choose your fighter!</p>";
-    } else {
-        textDisplay.innerHTML = "<canvas id='canvas'></canvas>";
+function switchText() {
+        const canvas = document.getElementById("canvas");
+        const paragraph = document.querySelector("#setting p");
+
+        if (canvasVisible) {
+            canvas.style.display = "none";
+            paragraph.style.display = "block";
+        } else {
+            canvas.style.display = "block";
+            paragraph.style.display = "none";
+        }
+
+        canvasVisible = !canvasVisible;
     }
-}
 </script>
