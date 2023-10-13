@@ -3,12 +3,18 @@
     #canvas {
         margin: 0;
         border: 4px solid black;
-        background-image: url("{{site.baseurl}}/images/background.jpg");
         background-size: cover;
     }
 </style>
 
-<canvas id='canvas'></canvas>
+<div style="text-align:center">
+    <button class="button" onclick="switchText()">Settings</button>
+</div>
+<br>
+<div id="setting" style="text-align:center">
+    <canvas id="canvas"></canvas>
+    <p style="display: none;">Choose your fighter!</p>
+</div>
 
 <script>
     let x = 0;
@@ -97,7 +103,7 @@
                 keys.left.pressed = true;
                 break;
             case 83:
-            case 38:
+            case 40:
                 console.log('down');
                 break;
             case 68:
@@ -106,7 +112,7 @@
                 keys.right.pressed = true;
                 break;
             case 87:
-            case 40:
+            case 38:
                 console.log('up');
                 if (player.velocity.y === 0) {
                     player.velocity.y -= 20;
@@ -123,7 +129,7 @@
                 keys.left.pressed = false;
                 break;
             case 83:
-            case 38:
+            case 40:
                 console.log('down');
                 break;
             case 68:
@@ -132,7 +138,7 @@
                 keys.right.pressed = false;
                 break;
             case 87:
-            case 40:
+            case 38:
                 console.log('up');
                 if (player.velocity.y === 0) {
                     player.velocity.y = -20;
@@ -143,6 +149,7 @@
 </script>
 
 <button class="gravity" onclick="switchGravity()">Change Gravity</button>
+
 <script>
     function switchGravity() {
         if (gravity === 1.5) {
@@ -150,5 +157,22 @@
         } else if (gravity === 0.75) {
             gravity = 1.5;
         }
+    }
+// Setting Swap
+let canvasVisible = true;
+
+function switchText() {
+        const canvas = document.getElementById("canvas");
+        const paragraph = document.querySelector("#setting p");
+
+        if (canvasVisible) {
+            canvas.style.display = "none";
+            paragraph.style.display = "block";
+        } else {
+            canvas.style.display = "block";
+            paragraph.style.display = "none";
+        }
+
+        canvasVisible = !canvasVisible;
     }
 </script>
