@@ -1,4 +1,3 @@
-
 <!-- Style of the Canvas -->
 <style>
     .game-container {
@@ -103,10 +102,10 @@
         } else {
             player.velocity.x = 0;
         }
-        if (player.position.x + player.width > 1400) {
+        if (player.position.x + player.width > 1920) {
             player.position.x = 0;
         } else if (player.position.x + player.width < -30) {
-            player.position.x = 1350;
+            player.position.x = 1970;
         } else if (player.position.y + player.width < 0) {
             player.velocity.y += 5;
         }
