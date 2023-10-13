@@ -22,12 +22,12 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext('2d');
 
 // Prepare Window extents
-const maxWidth = 750 ;
-const maxHeight = 375 ;
+const maxWidth = 1500 ;
+const maxHeight = 750 ;
 
 // Prepare Image
 const backgroundImg = new Image();
-backgroundImg.src = "/Game/images/Background.jpg";
+backgroundImg.src = "/Game/images/newBackground.jpg";
 
 backgroundImg.onload = function () {
     const WIDTH = backgroundImg.width;
@@ -38,15 +38,15 @@ backgroundImg.onload = function () {
     const canvasWidth = maxWidth;
     const canvasHeight = canvasWidth / ASPECT_RATIO;
     const canvasLeft = 0; // Start from the left edge
-    const canvasTop = ((maxHeight - canvasHeight) / 2) + 100;
+    const canvasTop = 0;
 
     // Set Style properties
-    canvas.width = WIDTH;
+    canvas.width = WIDTH / 2;
     canvas.height = HEIGHT;
-    canvas.style.width = `${canvasWidth}px`;
+    canvas.style.width = `${canvasWidth / 2}px`;
     canvas.style.height = `${canvasHeight}px`;
 
-    canvas.style.position = 'absolute';
+    canvas.style.position = 'relative';
     canvas.style.left = `${canvasLeft}px`;
     canvas.style.top = `${canvasTop}px`;
   

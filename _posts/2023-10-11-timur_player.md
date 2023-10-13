@@ -1,30 +1,51 @@
+
 <!-- Style of the Canvas -->
 <style>
+    .game-container {
+        position: relative;
+        left: -520px;
+        width: 1920px;
+        height: 552px;
+    }
     #canvas {
         margin: 0;
         border: 4px solid black;
-        background-size: cover;
+        filter: invert(0%);
     }
+         .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("{{site.baseurl}}/images/background.jpg"); 
+        background-size: 1380px 552px; 
+        animation: slide 10s linear infinite; 
+    }
+
+    @keyframes slide {
+        0% {
+            background-position: 100% 0; 
+        }
+        100% {
+            background-position: 0% 0; 
+        }
+    }   
 </style>
 
-<div style="text-align:center">
-    <button class="button" onclick="switchText()">Settings</button>
-</div>
-<br>
-<div id="setting" style="text-align:center">
+<div class="game-container">
+    <div class="background"></div>
     <canvas id="canvas"></canvas>
-    <p style="display: none;">Choose your fighter!</p>
+
 </div>
 
 <script>
-    let x = 0;
     // Create empty canvas
     let canvas = document.getElementById('canvas');
     let c = canvas.getContext('2d');
     // Set the canvas dimensions
-    canvas.width = 800;
-    canvas.height = 400;
-    
+    canvas.width = 1920;
+    canvas.height = 552;
     // Define gravity value
     let gravity = 1.5;
     // Define the Player class
@@ -70,7 +91,6 @@
             pressed: false
         }
     };
-
     // Animation function to continuously update and render the canvas
     function animate() {
         requestAnimationFrame(animate);
@@ -83,40 +103,38 @@
         } else {
             player.velocity.x = 0;
         }
-        if (player.position.x + player.width > 830) {
+        if (player.position.x + player.width > 1400) {
             player.position.x = 0;
         } else if (player.position.x + player.width < -30) {
-            player.position.x = 800;
+            player.position.x = 1350;
         } else if (player.position.y + player.width < 0) {
             player.velocity.y += 5;
         }
     }
     animate();
-
-    //PLAYER CONTROLS
     // Event listener for keydown events
     addEventListener('keydown', ({ keyCode }) => {
         switch (keyCode) {
             case 65:
-            case 37:
                 console.log('left');
                 keys.left.pressed = true;
                 break;
             case 83:
-            case 40:
                 console.log('down');
                 break;
             case 68:
-            case 39:
                 console.log('right');
                 keys.right.pressed = true;
                 break;
             case 87:
-            case 38:
                 console.log('up');
                 if (player.velocity.y === 0) {
                     player.velocity.y -= 20;
                 }
+                break;
+            case 38:
+                console.log('upside down');
+                player.y = 0;
                 break;
         }
     });
@@ -124,21 +142,17 @@
     addEventListener('keyup', ({ keyCode }) => {
         switch (keyCode) {
             case 65:
-            case 37:
                 console.log('left');
                 keys.left.pressed = false;
                 break;
             case 83:
-            case 40:
                 console.log('down');
                 break;
             case 68:
-            case 39:
                 console.log('right');
                 keys.right.pressed = false;
                 break;
             case 87:
-            case 38:
                 console.log('up');
                 if (player.velocity.y === 0) {
                     player.velocity.y = -20;
@@ -149,7 +163,6 @@
 </script>
 
 <button class="gravity" onclick="switchGravity()">Change Gravity</button>
-
 <script>
     function switchGravity() {
         if (gravity === 1.5) {
@@ -157,22 +170,5 @@
         } else if (gravity === 0.75) {
             gravity = 1.5;
         }
-    }
-// Setting Swap
-let canvasVisible = true;
-
-function switchText() {
-        const canvas = document.getElementById("canvas");
-        const paragraph = document.querySelector("#setting p");
-
-        if (canvasVisible) {
-            canvas.style.display = "none";
-            paragraph.style.display = "block";
-        } else {
-            canvas.style.display = "block";
-            paragraph.style.display = "none";
-        }
-
-        canvasVisible = !canvasVisible;
     }
 </script>
