@@ -1,9 +1,16 @@
+<style>
+    div {
+        text-align: center;
+    }
+</style>
+
 <div>
     <a href="https://www.w3schools.com" id="link">Click Me!</a>
 </div>
 <div>
-    <button class="button" onclick="change()" style="margin-left:50px">SwapSongs</button>
+    <button class="button" onclick="change()">Swap Songs</button>
 </div>
+
 <script>
     let swap = true;
     function change() {
