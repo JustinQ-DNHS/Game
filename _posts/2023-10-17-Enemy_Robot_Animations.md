@@ -11,6 +11,9 @@ type: tangible
         #spriteContainer {
             filter: invert(100%) grayscale(100%) opacity(50%);
         }
+        input {
+            margin-left: 15px
+        }
 </style>
 
 <body>
@@ -24,13 +27,13 @@ type: tangible
             <input type="radio" name="animation" id="idle" checked>
             <label for="running">Idle</label>
             <input type="radio" name="animation" id="run">
-            <label for="run">Run</label><br>
+            <label for="run">Run</label>
             <input type="radio" name="animation" id="jump">
-            <label for="jump">Jump</label><br>
+            <label for="jump">Jump</label>
             <input type="radio" name="animation" id="ko">
-            <label for="ko">KO</label><br>
+            <label for="ko">KO</label>
             <input type="radio" name="animation" id="punch">
-            <label for="punch">Punch</label><br>
+            <label for="punch">Punch</label>
         </div>
     </div>
 </body>
