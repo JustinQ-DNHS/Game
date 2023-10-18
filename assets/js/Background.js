@@ -21,31 +21,32 @@ export function initBackground(canvas, image, speedRatio) {
     const maxWidth = window.innerWidth;
     const maxHeight = window.innerHeight;
 
-    // Account for the header height
-    const headerHeight = document.querySelector('header').offsetHeight;
+    // Calculate the top position to place the image in the middle
+    const topPosition = (maxHeight - background.height) / 2;
 
-    // Calculate the top position
-    const topPosition = headerHeight + (maxHeight - headerHeight) / 2;
+    // Adjust display size to show half the width
+    const ADJUST = 1.8;
 
-    // Setup background constant to adjust display size
-    const ADJUST = 1.42 // visual layer adjust, use "1"" for a perfect loop 
+    // Calculate the new canvas width
+    const canvasWidth = maxWidth * ADJUST;
+    const canvasHeight = canvasWidth / background.aspect_ratio; // Maintain the aspect ratio
 
-    // Set Dimensions to match the image width
-    const canvasWidth = maxWidth;
-    const canvasHeight = canvasWidth / background.aspect_ratio;  // height is oriented by width
-    const canvasLeft = 0; // Start image from the left edge horizontally
+    // Calculate the new canvas left position to center it
+    const canvasLeft = (maxWidth - canvasWidth) / 2;
 
     // Set dimensions for the background canvas
-    canvas.width = background.width / ADJUST;
-    canvas.height = background.height / ADJUST;
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+
     // Set Style properties for the background canvas
     canvas.style.width = `${canvasWidth}px`;
     canvas.style.height = `${canvasHeight}px`;
     canvas.style.position = 'absolute';
     canvas.style.left = `${canvasLeft}px`;
-    canvas.style.top = `${topPosition}px`;
+    canvas.style.top = `${topPosition}px`; // Set the top position
 
     return background;
 }
+
 
 export default Background;
