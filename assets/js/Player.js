@@ -7,7 +7,9 @@ const PlayerAnimation = {
     width: 798,
     height: 735,
 	d: { row: 0, frames: 20, idleFrame: { column: 7, frames: 0 } }, // Walk right with 'd' key
+    w: { row: 1, frames: 32, idleFrame: {column: 7, frames: 0}}, // Jump up with 'w' key
 	a: { row: 6, frames: 10, idleFrame: { column: 7, frames: 0 } }, // Walk left with 'a' key
+    s: { row: 2, frames: 40, idleFrame: { column: 7, frames: 0}}, //Goes down with 's' key
 }
 
 export class CharacterPlayer extends Character{
@@ -30,6 +32,11 @@ export class CharacterPlayer extends Character{
         }
         else if (this.frameY === PlayerAnimation.d.row && !this.isIdle){
             this.x += this.speed;
+        } else if (this.frameY === PlayerAnimation.w.row && !this.isIdle) {
+            this.y -= this.speed;
+        }
+        else if (this.frameY === PlayerAnimation.s.row && !this.isIdle) {
+            this.y += this.speed;
         }
 
         // Update animation frameX of the object
