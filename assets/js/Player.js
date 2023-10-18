@@ -1,37 +1,37 @@
 import GameEnv from './GameEnv.js';
 import Character from './Character.js';
 
-const DogAnimation = {
+const PlayerAnimation = {
     // Sprite properties
-    scale: 0.62,
-    width: 160,
-    height: 144,
-	idle: { row: 0, frames: 47 },
-	barking: { row: 1, frames: 47 },
-	walking: { row: 2, frames: 47 }
+    scale: 0.15,
+    width: 798,
+    height: 735,
+	d: { row: 0, frames: 20, idleFrame: { column: 7, frames: 0 } }, // Walk right with 'd' key
+	a: { row: 6, frames: 10, idleFrame: { column: 7, frames: 0 } }, // Walk left with 'a' key
 }
 
-export class CharacterDog extends Character{
+export class CharacterPlayer extends Character{
     // constructors sets up Character object 
-    constructor(dogCanvas, image, speedRatio){
-        super(dogCanvas, 
+    constructor(playerCanvas, image, speedRatio){
+        super(playerCanvas, 
             image, 
             speedRatio,
-            DogAnimation.width, 
-            DogAnimation.height, 
-            DogAnimation.scale
+            PlayerAnimation.width, 
+            PlayerAnimation.height, 
+            PlayerAnimation.scale
         );
+        this.isIdle = true;
     }
 
-    // Dog perform a unique update
+    // Player perform a unique update
     update() {
-        if (this.frameY === DogAnimation.walking.row) {
-            this.x -= this.speed;  // Move the dog to the left
-            // Check if the dog has moved off the left edge of the canvas
-            if (this.x < -this.canvas.width) {
-                this.x = GameEnv.innerWidth; // Reset the dog's x position to the right edge
-            }
+        if (this.frameY === PlayerAnimation.a.row && !this.isIdle) {
+            this.x -= this.speed;  // Move the Player to the left
         }
+        else if (this.frameY === PlayerAnimation.d.row && !this.isIdle){
+            this.x += this.speed;
+        }
+
         // Update animation frameX of the object
         if (this.frameX < this.maxFrame) {
             this.frameX++;
@@ -41,35 +41,48 @@ export class CharacterDog extends Character{
     }
 }
 
-// Can add specific initialization parameters for the dog here
-// In this case the dog is following the default character initialization
-export function initDog(canvasId, image, speedRatio, controls){
-    // Create the Dog character
-    var dog = new CharacterDog(canvasId, image, speedRatio);
+// Can add specific initialization parameters for the Player here
+// In this case the Player is following the default character initialization
+export function initPlayer(canvasId, image, gameSpeed, speedRatio){
+    // Create the Player character
+    var player = new CharacterPlayer(canvasId, image, gameSpeed, speedRatio);
 
-    // Dog Frame position and Frame extents
-    dog.setFrameY(DogAnimation.walking.row);
-    dog.setMaxFrame(DogAnimation.walking.frames);
+    // Player Frame position and Frame extents
+    player.setFrameY(PlayerAnimation['a'].row);
+    player.setFrameX(PlayerAnimation['a'].idleFrame.column)
+    player.setMaxFrame(PlayerAnimation['a'].idleFrame.frames);
 
-    // Dog Screen Position
-    dog.setX(GameEnv.innerWidth);
-    dog.setY(GameEnv.innerHeight / 1.5);
+    // Player Screen Position
+    player.setX(GameEnv.innerWidth);
+    player.setY(GameEnv.innerHeight / 1.5);
 
-    /* Dog Control 
+    /* Player Control 
     * changes y value, the row in sprite
     * which changes animation to either idle, bark, walk
     * change number of frames in row
     */
-    GameEnv.controls.addEventListener('click', function (event) {
-        if (event.target.tagName === 'INPUT') {
-            const selectedAnimation = event.target.id;
-            dog.setFrameY(DogAnimation[selectedAnimation].row);
-            dog.setMaxFrame(DogAnimation[selectedAnimation].frames);
+    document.addEventListener('keydown', function (event) {
+        if (PlayerAnimation.hasOwnProperty(event.key)) {
+            const selectedAnimation = event.key;
+            player.setFrameY(PlayerAnimation[selectedAnimation].row);
+            player.setMaxFrame(PlayerAnimation[selectedAnimation].frames);
+            player.isIdle = false;
         }
     });
 
-    // Dog Object
-    return dog;
+    document.addEventListener('keyup', function (event) {
+        if (PlayerAnimation.hasOwnProperty(event.key)) {
+            // If no button is pressed then idle
+            const selectedAnimation = event.key;
+            player.setFrameY(PlayerAnimation[selectedAnimation].row);
+            player.setFrameX(PlayerAnimation[selectedAnimation].idleFrame.column)
+            player.setMaxFrame(PlayerAnimation[selectedAnimation].idleFrame.frames);
+            player.isIdle = true;
+        }
+    });
+
+    // Player Object
+    return player;
 }
 
-export default CharacterDog;
+export default CharacterPlayer;
