@@ -95,10 +95,7 @@ export function initPlayer(canvasId, image, gameSpeed, speedRatio) {
             case 68: // 'D' key
             case 87: // 'W' key
             case 83: // 'S' key
-                // If no button is pressed then idle
-                player.setFrameY(PlayerAnimation[keyCode].row);
-                player.setFrameX(PlayerAnimation[keyCode].idleFrame.column);
-                player.setMaxFrame(PlayerAnimation[keyCode].idleFrame.frames);
+                // When any movement key is released, set isIdle to true
                 player.isIdle = true;
                 break;
         }
