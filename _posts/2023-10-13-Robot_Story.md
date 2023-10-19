@@ -38,6 +38,7 @@ Timeline:
         - Time of despair
         - Defend humans from alien attack, almost lose
         - New robot defenders are made
+            - Ghostbots
     Act II:
         - Robot starts beating up newer robots
-        - 
+        - Finds out that they are ghost robots
