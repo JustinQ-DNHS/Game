@@ -14,18 +14,11 @@
 
 <script>
     // Code for video swapper
-    let swapLink = false;
     function changeLink() {
         const videoLink = document.getElementById("video")
-        if (swapLink) {
-            videoLink.src = "https://www.youtube.com/embed/gZjdAWgjLx8"
-            console.log(swapLink)
-        }
-        else {
-            videoLink.src = "https://www.youtube.com/embed/aBH_HH88qmY"
-            console.log(swapLink)
-        }
-
-        swapLink = !swapLink;
+        let inputText = document.getElementById("URLId").value;
+            videoLink.src = "https://www.youtube.com/embed/" + inputText
+            console.log("Complete")
+            console.log(videoLink.src)
     }
 </script>
