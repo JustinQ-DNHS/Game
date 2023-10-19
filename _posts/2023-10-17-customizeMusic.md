@@ -7,7 +7,7 @@
 <div>
     <iframe width="996" height="560" src="https://www.youtube.com/embed/gZjdAWgjLx8" id="video"></iframe>
     <div>
-        <input>
+        <input type="text" id="URLId" placeholder="Last 11 digits of URL">
         <button class="button1" onclick="changeLink()">Swap Song</button>
     </div>
 </div>
