@@ -50,7 +50,7 @@ export class CharacterPlayer extends Character{
 
 // Can add specific initialization parameters for the Player here
 // In this case the Player is following the default character initialization
-export function initPlayer(canvasId, image, gameSpeed, speedRatio){
+export function initPlayer(canvasId, image, gameSpeed, speedRatio) {
     // Create the Player character
     var player = new CharacterPlayer(canvasId, image, gameSpeed, speedRatio);
 
@@ -60,36 +60,50 @@ export function initPlayer(canvasId, image, gameSpeed, speedRatio){
     player.setMaxFrame(PlayerAnimation['a'].idleFrame.frames);
 
     // Player Screen Position
-    player.setX(GameEnv.innerWidth);
-    player.setY(GameEnv.innerHeight / 1.5);
+    player.setX(100);
+    player.setY(100);
 
-    /* Player Control 
-    * changes y value, the row in sprite
-    * which changes animation to either idle, bark, walk
-    * change number of frames in row
-    */
-    document.addEventListener('keydown', function (event) {
-        if (PlayerAnimation.hasOwnProperty(event.key)) {
-            const selectedAnimation = event.key;
-            player.setFrameY(PlayerAnimation[selectedAnimation].row);
-            player.setMaxFrame(PlayerAnimation[selectedAnimation].frames);
-            player.isIdle = false;
+    // New event listeners for keydown and keyup events
+    addEventListener('keydown', ({ keyCode }) => {
+        switch (keyCode) {
+            case 65: // 'A' key
+                player.setFrameY(PlayerAnimation['a'].row);
+                player.setMaxFrame(PlayerAnimation['a'].frames);
+                player.isIdle = false;
+                break;
+            case 68: // 'D' key
+                player.setFrameY(PlayerAnimation['d'].row);
+                player.setMaxFrame(PlayerAnimation['d'].frames);
+                player.isIdle = false;
+                break;
+            case 87: // 'W' key
+                player.setFrameY(PlayerAnimation['w'].row);
+                player.setMaxFrame(PlayerAnimation['w'].frames);
+                player.isIdle = false;
+                break;
+            case 83: // 'S' key
+                player.setFrameY(PlayerAnimation['s'].row);
+                player.setMaxFrame(PlayerAnimation['s'].frames);
+                player.isIdle = false;
+                break;
         }
     });
 
-    document.addEventListener('keyup', function (event) {
-        if (PlayerAnimation.hasOwnProperty(event.key)) {
-            // If no button is pressed then idle
-            const selectedAnimation = event.key;
-            player.setFrameY(PlayerAnimation[selectedAnimation].row);
-            player.setFrameX(PlayerAnimation[selectedAnimation].idleFrame.column)
-            player.setMaxFrame(PlayerAnimation[selectedAnimation].idleFrame.frames);
-            player.isIdle = true;
+    addEventListener('keyup', ({ keyCode }) => {
+        switch (keyCode) {
+            case 65: // 'A' key
+            case 68: // 'D' key
+            case 87: // 'W' key
+            case 83: // 'S' key
+                // When any movement key is released, set isIdle to true
+                player.isIdle = true;
+                break;
         }
     });
 
     // Player Object
     return player;
 }
+
 
 export default CharacterPlayer;
