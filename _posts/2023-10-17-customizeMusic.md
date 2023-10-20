@@ -6,7 +6,7 @@
 </style>
 
 <!--HTML section for Buttons-->
-<div>
+<div id="xavButtons">
     <!--Loads Youtube Video-->
     <div id="player"></div>
     <!--HTML for Buttons-->
@@ -14,7 +14,9 @@
     <button onclick="mute()" id="muteButton">Mute</button>
     <div id="inputVisible" style="display:none">
         <input type="text" id="URLId" placeholder="Insert URL Here">
-        <button class="button1" onclick="changeLink()">Swap Song</button>
+        <button onclick="changeLink()">Swap Song</button>
+        <br>
+        <button onclick="defaultMusic()" id="defaultButton">Switch to Default 2</button>
     </div>
     <!--Warning Message-->
     <p> Please note that reloading will break the music due to a bug in the YouTube API, if you are forced to reload, open the link from another page</p>
@@ -22,6 +24,22 @@
 </div>
 
 <script>
+    // Code for default button
+    function defaultMusic() {
+        const videoId = player.getVideoData().video_id;
+        if (videoId === "xZhrZMervZU") {
+            const videoId = "VGNcGl1zVjQ";
+            player.loadVideoById(videoId);
+            document.getElementById("defaultButton").innerHTML = "Switch to Default 1"
+            console.log(videoId)
+        }
+        if (videoId !== "xZhrZMervZU") {
+            const videoId = "xZhrZMervZU";
+            player.loadVideoById(videoId);
+            document.getElementById("defaultButton").innerHTML = "Switch to Default 2"
+            console.log(videoId)
+        }
+    }
     // Code for video swapper
     let player;
     function changeLink() {
@@ -29,6 +47,7 @@
         if (inputText.length >= 11) {
             const videoId = inputText.substring(inputText.length - 11);
             player.loadVideoById(videoId);
+            document.getElementById("defaultButton").innerHTML = "Switch to Default 1"
         }
     }
 
@@ -69,9 +88,9 @@
         player = new YT.Player('player', {
             height: '0',
             width: '0',
-            videoId: 'xZhrZMervZU', //Default Video ID
+            videoId: 'xZhrZMervZU', // Default video ID
             playerVars: {
-                'autoplay': 1, // Autoplay the video
+                'autoplay': 1,
                 'loop': 1
             },
         });
