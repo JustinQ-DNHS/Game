@@ -1,17 +1,22 @@
+<!--Centers the Button -->
 <style>
     div {
         text-align: center;
     }
 </style>
 
+<!--HTML section for Buttons-->
 <div>
+    <!--Loads Youtube Video-->
     <div id="player"></div>
+    <!--HTML for Buttons-->
     <button onclick="input()" id="swapInput">Show Input</button>
     <button onclick="mute()" id="muteButton">Mute</button>
     <div id="inputVisible" style="display:none">
-        <input type="text" id="URLId" placeholder="Last 11 digits of URL">
+        <input type="text" id="URLId" placeholder="Insert URL Here">
         <button class="button1" onclick="changeLink()">Swap Song</button>
     </div>
+    <!--Warning Message-->
     <p> Please note that reloading will break the music due to a bug in the YouTube API, if you are forced to reload, open the link from another page</p>
 </div>
 
@@ -40,7 +45,7 @@
         inputBar = !inputBar;
     }
     
-    // Mute button
+    // Mute Button
     function mute() {
         if (player.isMuted()) {
             player.unMute();
@@ -63,7 +68,7 @@
         player = new YT.Player('player', {
             height: '0',
             width: '0',
-            videoId: 'xZhrZMervZU',
+            videoId: 'xZhrZMervZU', //Default Video ID
             playerVars: {
                 'autoplay': 1, // Autoplay the video
                 'loop': 1
