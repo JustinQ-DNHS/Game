@@ -6,17 +6,16 @@
 </style>
 
 <!--HTML section for Buttons-->
-<div id="xavButtons">
+<div>
     <!--Loads Youtube Video-->
     <div id="player"></div>
     <!--HTML for Buttons-->
     <button onclick="input()" id="swapInput">Show Input</button>
     <button onclick="mute()" id="muteButton">Mute</button>
+    <button onclick="defaultMusic()" id="defaultButton">Switch to Default 2</button>
     <div id="inputVisible" style="display:none">
         <input type="text" id="URLId" placeholder="Insert URL Here">
         <button onclick="changeLink()">Swap Song</button>
-        <br>
-        <button onclick="defaultMusic()" id="defaultButton">Switch to Default 2</button>
     </div>
     <!--Warning Message-->
     <p> Please note that reloading will break the music due to a bug in the YouTube API, if you are forced to reload, open the link from another page</p>
