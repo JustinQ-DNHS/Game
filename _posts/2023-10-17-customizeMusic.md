@@ -39,10 +39,10 @@
     
     // Mute button
     function mute() {
-        if (plasyer.isMuted()) {
+        if (player.isMuted()) {
             player.unMute();
         } else {
-            player.Mute();
+            player.mute();
         }
         isMuted = !isMuted;
     }
