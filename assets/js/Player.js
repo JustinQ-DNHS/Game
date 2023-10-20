@@ -28,15 +28,20 @@ export class CharacterPlayer extends Character{
     // Player perform a unique update
     update() {
         if (this.frameY === PlayerAnimation.a.row && !this.isIdle) {
-            this.x -= this.speed;  // Move the Player to the left
+            this.x -= this.speed;  // Move the Player to the Left
         }
         else if (this.frameY === PlayerAnimation.d.row && !this.isIdle){
-            this.x += this.speed;
+            this.x += this.speed; // Move the player to the Right
         } else if (this.frameY === PlayerAnimation.w.row && !this.isIdle) {
-            this.y -= this.speed;
+            this.y -= this.speed; // Move the Player Up
+
+            // Prevents player from moving above the canvas
+            if (this.y < 0) {
+                this.y = 0;
+            }
         }
         else if (this.frameY === PlayerAnimation.s.row && !this.isIdle) {
-            this.y += this.speed;
+            this.y += this.speed; // Move the Player Down
         }
 
         // Update animation frameX of the object
