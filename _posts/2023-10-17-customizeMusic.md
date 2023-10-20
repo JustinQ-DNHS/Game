@@ -7,6 +7,7 @@
 <div>
     <div id="player"></div>
     <button onclick="input()">Show Input</button>
+    <button onclick="mute()">Mute</button>
     <div id="inputVisible" style="display:none">
         <input type="text" id="URLId" placeholder="Last 11 digits of URL">
         <button class="button1" onclick="changeLink()">Swap Song</button>
@@ -34,6 +35,16 @@
             inputVisible.style.display = "none";
         }
         inputBar = !inputBar;
+    }
+    
+    // Mute button
+    function mute() {
+        if (plasyer.isMuted()) {
+            player.unMute();
+        } else {
+            player.Mute();
+        }
+        isMuted = !isMuted;
     }
 
     // Load the YouTube IFrame API asynchronously
