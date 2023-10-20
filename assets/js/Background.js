@@ -24,7 +24,6 @@ export function initBackground(canvas, image, speedRatio) {
     // Calculate the top position to place the image in the middle
     const topPosition = (maxHeight - background.height) / 2;
 
-    
     // Calculate the new canvas width
     const canvasWidth = maxWidth;
     const canvasHeight = 550; // Maintain the aspect ratio
@@ -33,11 +32,11 @@ export function initBackground(canvas, image, speedRatio) {
     const canvasLeft = (maxWidth - canvasWidth) / 2;
 
     // Set dimensions for the background canvas
-    canvas.width = canvasWidth / 2;
+    canvas.width = canvasWidth; // Make the canvas as wide as the viewport
     canvas.height = canvasHeight;
 
     // Set Style properties for the background canvas
-    canvas.style.width = `${canvasWidth / 2}px`;
+    canvas.style.width = `${canvasWidth}px`; // Update the width to match the canvas size
     canvas.style.height = `${canvasHeight}px`;
     canvas.style.position = 'absolute';
     canvas.style.left = `${canvasLeft}px`;
@@ -45,6 +44,5 @@ export function initBackground(canvas, image, speedRatio) {
 
     return background;
 }
-
 
 export default Background;
