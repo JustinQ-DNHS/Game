@@ -6,12 +6,13 @@
 
 <div>
     <div id="player"></div>
-    <button onclick="input()">Show Input</button>
-    <button onclick="mute()">Mute</button>
+    <button onclick="input()" id="swapInput">Show Input</button>
+    <button onclick="mute()" id="muteButton">Mute</button>
     <div id="inputVisible" style="display:none">
         <input type="text" id="URLId" placeholder="Last 11 digits of URL">
         <button class="button1" onclick="changeLink()">Swap Song</button>
     </div>
+    <p> Please note that reloading will break the music due to a bug in the YouTube API, if you are forced to reload, open the link from another page</p>
 </div>
 
 <script>
@@ -31,8 +32,10 @@
         const inputVisible = document.getElementById("inputVisible");
         if (inputBar) {
             inputVisible.style.display = "block";
+            document.getElementById("swapInput").innerHTML = "Hide Input"
         } else {
             inputVisible.style.display = "none";
+            document.getElementById("swapInput").innerHTML = "Show Input"
         }
         inputBar = !inputBar;
     }
@@ -41,8 +44,10 @@
     function mute() {
         if (player.isMuted()) {
             player.unMute();
+            document.getElementById("muteButton").innerHTML = "Mute"
         } else {
             player.mute();
+            document.getElementById("muteButton").innerHTML = "Unmute"
         }
         isMuted = !isMuted;
     }
@@ -56,11 +61,12 @@
     // This function creates an <iframe> (and YouTube player) after the API code downloads.
     function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
-            height: '560',
-            width: '996',
-            videoId: 'gZjdAWgjLx8',
+            height: '0',
+            width: '0',
+            videoId: 'xZhrZMervZU',
             playerVars: {
                 'autoplay': 1, // Autoplay the video
+                'loop': 1
             },
         });
     }
