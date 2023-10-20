@@ -9,11 +9,8 @@ playerSprite: /images/robotSpritesheet.png
 {% assign backgroundFile = site.baseurl | append: page.image %}
 {% assign playerSpriteImage = site.baseurl | append: page.playerSprite %}
 
+<!--Styling for Canvas-->
 <style>
-    #controls {
-        position: relative;
-        z-index: 2; /* Ensure the controls are on top */
-    }
     #background {
         border: 3px solid white; /* Add a white border with 10px width */
     }
@@ -21,6 +18,7 @@ playerSprite: /images/robotSpritesheet.png
 
 
 <script type="module">
+    //Import code from other files and apply it to the file
     import GameEnv from '{{site.baseurl}}/assets/js/GameEnv.js';
     import { initBackground } from '{{site.baseurl}}/assets/js/Background.js';
     import { initPlayer} from '{{site.baseurl}}/assets/js/Player.js';
@@ -40,27 +38,30 @@ playerSprite: /images/robotSpritesheet.png
 
     // Prepare HTML with Player Canvas
     const playerCanvas = document.createElement("canvas");
-   playerCanvas.id = "characters";
+    playerCanvas.id = "characters";
     document.body.appendChild(playerCanvas);
 
     // Setup Globals
-    GameEnv.gameSpeed = 2;
+    GameEnv.gameSpeed = 2; //Controls game speed (player, background, enemies)
     GameEnv.controls = document.getElementById("controls");
 
+    //Applies background functionality and updates game animation
     backgroundImg.onload = function () {
         // Background object(s)
-        const backgroundSpeedRatio = 0.2
-        var backgroundObj = initBackground(backgroundCanvas, backgroundImg, backgroundSpeedRatio);
+        const backgroundSpeedRatio = 0.2 //Controls speed of background
+        var backgroundObj = initBackground(backgroundCanvas, backgroundImg, backgroundSpeedRatio); //Sets up background properties
 
         // Character object(s)
-        const playerSpeedRatio = 0.7
-        var playerObj = initPlayer(playerCanvas, playerImg, playerSpeedRatio);
+        const playerSpeedRatio = 0.7 //Controls speed of player
+        var playerObj = initPlayer(playerCanvas, playerImg, playerSpeedRatio); //Sets up player properties
 
         // Game loop
         function gameLoop() {
+            //Draws and updates background animation
             backgroundObj.update();
             backgroundObj.draw();
-
+            
+            //Draws and updates player animation
             playerObj.update();
             playerObj.draw();
 
