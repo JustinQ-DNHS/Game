@@ -13,6 +13,7 @@
         <button class="button1" onclick="changeLink()">Swap Song</button>
     </div>
     <p> Please note that reloading will break the music due to a bug in the YouTube API, if you are forced to reload, open the link from another page</p>
+    <p>Please be aware some videos do not work with the background music due to various reasons</p>
 </div>
 
 <script>
