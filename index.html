@@ -1,6 +1,6 @@
 ---
 layout: base
-title: 我的游戏
+title: Universum
 image: /images/newBackground.jpg
 playerSprite: /images/robotSpritesheet.png
 ---
@@ -15,7 +15,6 @@ playerSprite: /images/robotSpritesheet.png
         border: 3px solid white; /* Add a white border with 10px width */
     }
 </style>
-
 
 <script type="module">
     //Import code from other files and apply it to the file
@@ -64,7 +63,7 @@ playerSprite: /images/robotSpritesheet.png
             //Draws and updates player animation
             playerObj.update();
             playerObj.draw();
-
+            
             requestAnimationFrame(gameLoop);  // cycle the game, aka recursion
         }
 
