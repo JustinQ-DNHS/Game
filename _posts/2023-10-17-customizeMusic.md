@@ -12,10 +12,10 @@
     <!--HTML for Buttons-->
     <button onclick="input()" id="swapInput">Show Input</button>
     <button onclick="mute()" id="muteButton">Mute</button>
-    <button onclick="defaultMusic()" id="defaultButton">Switch to Default 2</button>
     <div id="inputVisible" style="display:none">
         <input type="text" id="URLId" placeholder="Insert URL Here">
         <button onclick="changeLink()">Swap Song</button>
+        <br><button onclick="defaultMusic()" id="defaultButton">Switch to Default 2</button>
     </div>
     <!--Warning Message-->
     <p> Please note that reloading will break the music due to a bug in the YouTube API, if you are forced to reload, open the link from another page</p>
@@ -91,6 +91,9 @@ function onYouTubeIframeAPIReady() {
 
     //If Audio is less than 0.5 assign the first link, if not, assign the second link
     let audio = (x < 0.5) ? 'xZhrZMervZU' : 'VGNcGl1zVjQ';
+    if (audio === "VGNcGl1zVjQ") {
+        document.getElementById("defaultButton").innerHTML = "Switch to Defailt 1"
+    }
 
     //Properties for Youtube Player
     player = new YT.Player('player', {
@@ -107,4 +110,5 @@ function onYouTubeIframeAPIReady() {
     //Further Documentation on Youtube API
     //https://developers.google.com/youtube/iframe_api_reference#Playback_controls
     //https://developers.google.com/youtube/player_parameters
+    
 </script>
