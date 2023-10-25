@@ -110,5 +110,4 @@ export function initPlayer(canvasId, image, gameSpeed, speedRatio) {
     return player;
 }
 
-
 export default CharacterPlayer;
