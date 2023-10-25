@@ -1,3 +1,11 @@
+---
+layout: base
+title: Music Changer
+comments: false
+type: tangibles
+courses: { compsci: {week: 6} }
+---
+
 <!--Centers the Button -->
 <style>
     div {
