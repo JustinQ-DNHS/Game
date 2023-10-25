@@ -1,7 +1,7 @@
 ---
 toc: false
 comments: true
-title: Robot Moving Animations
+title: Robot Movement
 description: Putting together animations to look fluid
 layout: notebook
 type: tangible
@@ -92,7 +92,7 @@ type: tangible
                         robot.frameY = 0;
                         robot.frameX = 0;
                         robot.maxFrame = 20;
-                        robot.x = 100;
+                        robot.velocityX = 0;
                         break;
                     case 'run':
                         robot.frameY = 4;
