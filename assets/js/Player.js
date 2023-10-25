@@ -66,7 +66,7 @@ export function initPlayer(canvasId, image, gameSpeed, speedRatio) {
 
     // Player Screen Position
     player.setX(100);
-    player.setY(100);
+    player.setY(500);
 
     // New event listeners for keydown and keyup events
     addEventListener('keydown', ({ keyCode }) => {
