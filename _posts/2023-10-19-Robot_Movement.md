@@ -58,20 +58,26 @@ type: tangible
                 this.maxFrame = 20;
                 this.frameX = 0;
                 this.frameY = 0;
-                this.velocityX = 10;
+                this.velocityX = 0;
             }
             draw(context) {
-                context.drawImage(
-                    this.image,
-                    this.frameX * this.width,
-                    this.frameY * this.height,
-                    this.width,
-                    this.height,
-                    this.x,
-                    this.y,
-                    this.width * this.scale,
-                    this.height * this.scale
-                );
+                context.save(); 
+            if (this.scaleX === -1) {
+                context.scale(-1, 1);
+                context.translate(-this.width * this.scale, 0);
+            }
+            context.drawImage(
+                this.image,
+                this.frameX * this.width,
+                this.frameY * this.height,
+                this.width,
+                this.height,
+                this.x,
+                this.y,
+                this.width * this.scale,
+                this.height * this.scale
+            );
+        context.restore();
             }
             update() {
                 if (this.frameX < this.maxFrame) {
@@ -83,6 +89,7 @@ type: tangible
         }
         const robot = new Robot();
         // Add event listener to the parent container for event delegation
+        robot.scaleX = -1;
         const controls = document.getElementById('controls');
         controls.addEventListener('click', function (event) {
             if (event.target.tagName === 'INPUT') {
@@ -92,43 +99,55 @@ type: tangible
                         robot.frameY = 0;
                         robot.frameX = 0;
                         robot.maxFrame = 20;
+                        robot.x = 100;                        
                         robot.velocityX = 0;
+                        robot.scaleX = -1;
                         break;
                     case 'run':
                         robot.frameY = 4;
                         robot.frameX = 0;
                         robot.maxFrame = 18;
                         robot.x = 100;
+                        robot.velocityX = 0;
+                        robot.scaleX = -1;
                         break;
                     case 'jump':
                         robot.frameY = 1;
                         robot.frameX = 0;
                         robot.maxFrame = 32;
                         robot.x = 100;
-                        break;
+                        robot.velocityX = 0;
+                        robot.scaleX = -1;                       
+                       break;
                     case 'ko':
                         robot.frameY = 2;
                         robot.frameX = 0;
                         robot.maxFrame = 40;
                         robot.x = 100;
+                        robot.velocityX = 0;
+                        robot.scaleX = -1;                        
                         break;
                     case 'punch':
                         robot.frameY = 3;
                         robot.frameX = 0;
                         robot.maxFrame = 9;
                         robot.x = 50;
+                        robot.velocityX = 0;
+                        robot.scaleX = -1;                        
                         break;
                     case 'moveForward':
                         robot.frameY = 4;
                         robot.frameX = 0;
                         robot.maxFrame = 18;
-                        robot.x = 100;
+                        robot.velocityX = 10;
+                        robot.scaleX = -1;
                         break;
                     case 'moveBackward':
                         robot.frameY = 4;
                         robot.frameX = 0;
                         robot.maxFrame = 18;
-                        robot.velocityX = 0; 
+                        robot.velocityX = 0;
+                        robot.scaleX = -1; 
                         break;                        
                     default:
                         break;
