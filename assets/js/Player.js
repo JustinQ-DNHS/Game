@@ -18,11 +18,17 @@ export class CharacterPlayer extends Character{
         super(playerCanvas, 
             image, 
             speedRatio,
+
+            //Connects to the sprite propeties in player animation
             PlayerAnimation.width, 
             PlayerAnimation.height, 
             PlayerAnimation.scale
         );
         this.isIdle = true;
+
+        //Properties that control the player's vertical motion
+        this.velocityY = 0;
+        this.gravity = 0.5;
     }
 
     // Player perform a unique update
@@ -33,11 +39,13 @@ export class CharacterPlayer extends Character{
         else if (this.frameY === PlayerAnimation.d.row && !this.isIdle){
             this.x += this.speed; // Move the player to the Right
         } else if (this.frameY === PlayerAnimation.w.row && !this.isIdle) {
-            this.y -= this.speed; // Move the Player Up
+            this.y -= this.VelocityY; // Move the Player Up
+            this.velocityY -= this.gravity;
 
             // Prevents player from moving above the canvas
             if (this.y < 0) {
                 this.y = 0;
+                this.velocity = 0;
             }
         }
         else if (this.frameY === PlayerAnimation.s.row && !this.isIdle) {
