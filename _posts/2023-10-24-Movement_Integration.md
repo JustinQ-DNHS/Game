@@ -1,7 +1,7 @@
 ---
 toc: false
 comments: true
-title: Movement Integration
+title: Robot Animations
 description: Putting together animations to look fluid
 layout: notebook
 type: tangible
@@ -15,7 +15,7 @@ type: tangible
     </div>
 </body>
 <script>
-    let state = "idle"
+    let state = "idleRight"
     // Runs this whenever the page is loaded
     window.addEventListener('load', function () {
         // Names the parameters of all canvases on the page, using the `get.ElementById`
@@ -54,76 +54,117 @@ type: tangible
                 );
             }
             update() {
+                // IDLE
                 if (this.frameX < this.maxFrame) {
                     this.frameX += 1;
-                }
-                else {
-                    this.frameX = 0;
-                }
-                /*
-                if (state = "runStartEnd") {
-                    if (this.frameX < this.maxFrame) {
-                        this.frameX += 1;
-                    } 
-                    else {
-                        this.frameX = 0;
+                } else {
+                    currentState();
+                    if (state === "runRightStart") {
+                        state = "runRight"
+                    }
+                    if (state === "runRightEnd") {
+                        state = "idleRight"
+                    }
+                    if (state === "jumpRight") {
+                        state = "idleRight"
                     }
                 }
-                */
-            }
             }
         }
         const robot = new Robot();
+        // Add event listener to the parent container for event delegation
         addEventListener('keydown', ({ keyCode }) => {
-            switch (keyCode) {
-                case 65: // "A" Key
-                    state = "runLeftStart"
-                    break;
-                case 83:
-                    console.log('down');
-                    break;
-                case 68: // "D" Key
+        switch (keyCode) {
+            case 65: // "A" Key
+            case 37:
+                console.log('left down')
+                break;
+            case 83:
+            case 38:
+                console.log('down down');
+                break;
+            case 68:
+            case 39:
+                if (state !== "runRight") {
                     state = "runRightStart"
-                    break;
-                case 87:
-                    if (player.position.y === 350) {
-                        player.velocity.y -= 20;
-                    }
-                    break;
+                }
+                console.log('right down');
+                break;
+            case 87:
+            case 40:
+                if (state = "idleRight" || "runRight" || "runRightStart" || "runRightEnd") {
+                    state = "jumpRight"
+                }
+                console.log('up down');
+                break;
             }
         });
         addEventListener('keyup', ({ keyCode }) => {
-            switch (keyCode) {
-                    case 65:
-                        state = "runLeftEnd"
-                        break;
-                   case 83:
-                        console.log('down');
-                    break;
-                    case 68: // "D" Key
-                        state = "runRightEnd"
-                        break;
-                    case 87:
-                    case 40:
-                        console.log('up');
-                            if (player.position.y === 350) {
-                                player.velocity.y = -20;
-                            }
-                        break;
-            }
-        });
-        function animate() {
+        switch (keyCode) {
+            case 65: // "A" Key
+            case 37:
+                console.log('left up')
+                break;
+            case 83:
+            case 38:
+                console.log('down up');
+                break;
+            case 68:
+            case 39:
+                if (state === "runRight" || state === "runRightStart") {
+                    state = "runRightEnd"
+                }
+                console.log('right up');
+                break;
+        }
+    });
+    function currentState() {
+        if (state === "idleRight") {
+            robot.frameY = 0;
+            robot.frameX = 0;
+            robot.maxFrame = 20;
+            robot.x = 100;
+        }
+        if (state === "runRightStart") {
+            robot.frameY = 6;
+            robot.frameX = 0;
+            robot.maxFrame = 10;
+            robot.x = 100;
+        }
+        if (state === "runRight") {
+            robot.frameY = 4;
+            robot.frameX = 0;
+            robot.maxFrame = 18;
+            robot.x = 100;
+        }
+        if (state === "runRightEnd") {
+            robot.frameY = 5;
+            robot.frameX = 0;
+            robot.maxFrame = 10;
+            robot.x = 100;
+        }
+        if (state === "jumpRight") {
+            robot.frameY = 1;
+            robot.frameX = 0;
+            robot.maxFrame = 32;
+            robot.x = 100;
+        }
+    }
+        function animate() { //Creates a function called animate that is run after everything else is done
+            // Creates a variable callled currentFrameRate which will equal the slider.value and make it into a whole number / integer
+            // A timeout that runs a function, timeout creating the delay between each frame. Calculated by 1 second divided by currentFrameRate
             setTimeout(function () {
+                // Clears the canvas by replacing everysingle pixel with a transparent pixel
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
+                // Runs the draw function within the horse class creating the horse
                 robot.draw(ctx);
+                // Runs the update function, moving the frame of the horse over 1
                 robot.update();
+                // Reruns the animate function at the same consistency as the browsers refresh rate
                 requestAnimationFrame(animate);
             }, 1000 / FRAME_RATE);
         }
+        // This is the animate function being run at the start of the page, otherwise it would not start.
         animate();
     });
 </script>
-
-
-
-
