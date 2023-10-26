@@ -28,18 +28,23 @@ export class CharacterPlayer extends Character{
 
         //Properties that control the player's vertical motion
         this.velocityY = 0;
-        this.gravity = 0.5;
+        this.gravity = 5;
     }
 
     // Player perform a unique update
     update() {
+        //Logic for moving the Player to the Left
         if (this.frameY === PlayerAnimation.a.row && !this.isIdle) {
-            this.x -= this.speed;  // Move the Player to the Left
+            this.x -= this.speed;
         }
+
+        //Logic for moving the Player to the Right
         else if (this.frameY === PlayerAnimation.d.row && !this.isIdle){
-            this.x += this.speed; // Move the player to the Right
+            this.x += this.speed;
+
+        //Logic for moving the Player Upwards
         } else if (this.frameY === PlayerAnimation.w.row && !this.isIdle) {
-            this.y -= this.VelocityY; // Move the Player Up
+            this.y += this.velocityY;
             this.velocityY -= this.gravity;
 
             // Prevents player from moving above the canvas
@@ -48,8 +53,10 @@ export class CharacterPlayer extends Character{
                 this.velocity = 0;
             }
         }
+
+        //Logic for Moving the Player Down
         else if (this.frameY === PlayerAnimation.s.row && !this.isIdle) {
-            this.y += this.speed; // Move the Player Down
+            this.y += this.speed;
         }
 
         // Update animation frameX of the object
