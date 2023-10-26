@@ -26,15 +26,14 @@ export class Enemy extends Character {
 
     //update the enemy every repeat of the game loop
         update() {
-            if(this.domainOffset > 0 && this.domainOffset < 1000) {
+            this.domainOffset = this.domainOffset + 1;
+            if(this.domainOffset > -1 && this.domainOffset < this.domain) {
                 this.x = this.x + 2;
-                this.domainOffset = this.domainOffset + 1;
             };
-            if(this.domainOffset > 999 && this.domainOffset < 2000) {
+            if(this.domainOffset > this.domain && this.domainOffset < this.domain * 2) {
                 this.x = this.x - 2;
-                this.domainOffset = this.domainOffset + 1;
             };
-            if(this.domainOffset = 2000) {
+            if(this.domainOffset === this.domain * 2) {
                 this.domainOffset = 0;
             };
         };
@@ -48,7 +47,7 @@ export function initEnemy(_canvasId, image, gameSpeed, speedRatio, domain, domai
         enemy.setMaxFrame(enemyAnimation.idle.idleFrame.frames);
         enemy.setX(100); // Set an initial X position for the enemy
         enemy.setY(200); // Set an initial Y position for the enemy
-        enemy.setDomain(1000); // Sets the distance that the enemy will walk before turning around
+        enemy.setDomain(100); // Sets the distance that the enemy will walk before turning around
         enemy.setDomainOffset(0); // Leave at 0: the current x location of the enemy relative to its domain
     return enemy;
 };
