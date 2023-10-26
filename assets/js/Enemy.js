@@ -10,13 +10,33 @@ const enemyAnimation = {
 
 // Enemy class
 export class Enemy extends Character {
-    constructor(enemyCanvas, image, speedRatio) {
+    constructor(enemyCanvas, image, speedRatio, domain, domainOffset) {
         super (enemyCanvas, image, speedRatio, enemyAnimation.width, enemyAnimation.height, enemyAnimation.scale);
+        this.domain = domain; // Sets the distance that the enemy will walk before turning around
+        this.domainOffset = domainOffset; // Sets the distance that the enemy will walk before turning around
+        };
+
+        setDomain(domain){
+            this.domain = domain;
+        };
+
+        setDomainOffset(domainOffset){
+            this.domainOffset = domainOffset;
         };
 
     //update the enemy every repeat of the game loop
         update() {
-            this.x = this.x + 10;
+            if(this.domainOffset > 0 && this.domainOffset < 1000) {
+                this.x = this.x + 2;
+                this.domainOffset = this.domainOffset + 1;
+            };
+            if(this.domainOffset > 999 && this.domainOffset < 2000) {
+                this.x = this.x - 2;
+                this.domainOffset = this.domainOffset + 1;
+            };
+            if(this.domainOffset = 2000) {
+                this.domainOffset = 0;
+            };
         };
 };
 
@@ -28,8 +48,8 @@ export function initEnemy(_canvasId, image, gameSpeed, speedRatio, domain, domai
         enemy.setMaxFrame(enemyAnimation.idle.idleFrame.frames);
         enemy.setX(100); // Set an initial X position for the enemy
         enemy.setY(200); // Set an initial Y position for the enemy
-        enemy.setDomain(1000);
-        enemy.setDomainOffset(0);
+        enemy.setDomain(1000); // Sets the distance that the enemy will walk before turning around
+        enemy.setDomainOffset(0); // Leave at 0: the current x location of the enemy relative to its domain
     return enemy;
 };
 
