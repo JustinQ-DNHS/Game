@@ -26,7 +26,6 @@ courses: { compsci: {week: 6} }
         <br><button onclick="defaultMusic()" id="defaultButton">Switch to Default 2</button>
     </div>
     <!--Warning Message-->
-    <p> Reloading may break the Music, so if you do reload, exit and enter the page once more.</p>
     <p>Please be aware some videos do not work with the background music due to various reasons</p>
 </div>
 
