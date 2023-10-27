@@ -6,6 +6,7 @@ const PlayerAnimation = {
     scale: 0.15,
     width: 798,
     height: 735,
+    idle: { row: 0, frames: 20, idleFrame: { column: 7, frames: 0 } }, //Default Animation when idle
 	d: { row: 0, frames: 20, idleFrame: { column: 7, frames: 0 } }, // Walk right with 'd' key
     w: { row: 1, frames: 32, idleFrame: {column: 7, frames: 0}}, // Jump up with 'w' key
 	a: { row: 6, frames: 10, idleFrame: { column: 7, frames: 0 } }, // Walk left with 'a' key
@@ -16,15 +17,15 @@ export class CharacterPlayer extends Character {
     constructor(playerCanvas, image, speedRatio) {
         // Define the hitbox as a separate object
         const hitbox = {
-            x: 0,
-            y: 0,
+            //x: 0,
+            //y: 0,
             width: 50,
             height: 50,
         };
 
         super(playerCanvas, image, speedRatio, PlayerAnimation.width, PlayerAnimation.height, PlayerAnimation.scale);
 
-        // Now set the hitbox property of the character
+        //Sets the hitbox as the propety of the player
         this.hitbox = hitbox;
 
         this.isIdle = true;
@@ -125,6 +126,8 @@ export function initPlayer(canvasId, image, gameSpeed, speedRatio) {
             case 83: // 'S' key
                 // When any movement key is released, set isIdle to true
                 player.isIdle = true;
+                player.setFrameY(PlayerAnimation['idle'].row);
+                player.setMaxFrame(PlayerAnimation['idle'].frames);
                 break;
         }
     });
