@@ -10,7 +10,7 @@ type: tangible
     <div>
         <!-- Within the base div is a canvas. An HTML canvas is used only for graphics. It allows the user to access some basic functions related to the image created on the canvas (including animation) -->
         <canvas id="spriteContainer" style="filter: invert(100%);">
-            <img id="robotSprite" src="{{site.baseurl}}/images/Game/robotSpritesheet.png">
+            <img id="robotSprite" src="{{site.baseurl}}/images/robotSpritesheet.png">
         </canvas>
     </div>
 </body>
