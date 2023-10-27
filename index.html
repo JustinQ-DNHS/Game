@@ -1,8 +1,8 @@
 ---
 layout: base
 title: Universum
-image: /images/newBackground.jpg
-playerSprite: /images/robotSpritesheet.png
+image: /images/Game/newBackground.jpg
+playerSprite: /images/Game/robotSpritesheet.png
 ---
 
 <!-- Liquid code, run by Jekyll, used to define the location of assets -->
@@ -81,6 +81,10 @@ playerSprite: /images/robotSpritesheet.png
             //Draws and updates enemy animation
             enemyObj.update();
             enemyObj.draw();
+
+            //Updates Hitbox to match player position
+            playerObj.updateHitbox();
+
             requestAnimationFrame(gameLoop);  // cycle the game, aka recursion
         }
 

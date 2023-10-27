@@ -6,42 +6,66 @@ const PlayerAnimation = {
     scale: 0.15,
     width: 798,
     height: 735,
+    idle: { row: 0, frames: 20, idleFrame: { column: 7, frames: 0 } }, //Default Animation when idle
 	d: { row: 0, frames: 20, idleFrame: { column: 7, frames: 0 } }, // Walk right with 'd' key
     w: { row: 1, frames: 32, idleFrame: {column: 7, frames: 0}}, // Jump up with 'w' key
 	a: { row: 6, frames: 10, idleFrame: { column: 7, frames: 0 } }, // Walk left with 'a' key
     s: { row: 2, frames: 40, idleFrame: { column: 7, frames: 0}}, //Goes down with 's' key
 }
 
-export class CharacterPlayer extends Character{
-    // constructors sets up Character object 
-    constructor(playerCanvas, image, speedRatio){
-        super(playerCanvas, 
-            image, 
-            speedRatio,
-            PlayerAnimation.width, 
-            PlayerAnimation.height, 
-            PlayerAnimation.scale
-        );
+export class CharacterPlayer extends Character {
+    constructor(playerCanvas, image, speedRatio) {
+        // Define the hitbox as a separate object
+        const hitbox = {
+            //x: 0,
+            //y: 0,
+            width: 50,
+            height: 50,
+        };
+
+        super(playerCanvas, image, speedRatio, PlayerAnimation.width, PlayerAnimation.height, PlayerAnimation.scale);
+
+        //Sets the hitbox as the propety of the player
+        this.hitbox = hitbox;
+
         this.isIdle = true;
+        this.velocityY = 0;
+        this.gravity = 5;
+    }
+
+    //Updates the Position of the hitbox to match the player
+    updateHitbox() {
+        this.hitbox.x = this.x
+        this.hitbox.y = this.y
+        console.log('Hitbox:', this.hitbox); //logs the position of the hitbox
     }
 
     // Player perform a unique update
     update() {
+        //Logic for moving the Player to the Left
         if (this.frameY === PlayerAnimation.a.row && !this.isIdle) {
-            this.x -= this.speed;  // Move the Player to the Left
+            this.x -= this.speed;
         }
+
+        //Logic for moving the Player to the Right
         else if (this.frameY === PlayerAnimation.d.row && !this.isIdle){
-            this.x += this.speed; // Move the player to the Right
+            this.x += this.speed;
+
+        //Logic for moving the Player Upwards
         } else if (this.frameY === PlayerAnimation.w.row && !this.isIdle) {
-            this.y -= this.speed; // Move the Player Up
+            this.y += this.velocityY;
+            this.velocityY -= this.gravity;
 
             // Prevents player from moving above the canvas
             if (this.y < 0) {
                 this.y = 0;
+                this.velocity = 0;
             }
         }
+
+        //Logic for Moving the Player Down
         else if (this.frameY === PlayerAnimation.s.row && !this.isIdle) {
-            this.y += this.speed; // Move the Player Down
+            this.y += this.speed;
         }
 
         // Update animation frameX of the object
@@ -102,6 +126,8 @@ export function initPlayer(canvasId, image, gameSpeed, speedRatio) {
             case 83: // 'S' key
                 // When any movement key is released, set isIdle to true
                 player.isIdle = true;
+                player.setFrameY(PlayerAnimation['idle'].row);
+                player.setMaxFrame(PlayerAnimation['idle'].frames);
                 break;
         }
     });
