@@ -1,7 +1,7 @@
 ---
 toc: false
 comments: true
-title: Robot Movement
+title: Robot Left
 description: Putting together animations to look fluid
 layout: notebook
 type: tangible

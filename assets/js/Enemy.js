@@ -26,15 +26,15 @@ export class Enemy extends Character {
 
     //update the enemy every repeat of the game loop
         update() {
-            this.domainOffset = this.domainOffset + 1;
-            if(this.domainOffset > -1 && this.domainOffset < this.domain) {
-                this.x = this.x + 2;
+            this.domainOffset = this.domainOffset + 1; // "domainOffset" essentially works as a timer that counts up every second.
+            if(this.domainOffset > -1 && this.domainOffset < this.domain) { // move right until the timer equals "domain"
+                this.x = this.x + 2; // move two spaces to the right
             };
             if(this.domainOffset > this.domain && this.domainOffset < this.domain * 2) {
-                this.x = this.x - 2;
+                this.x = this.x - 2; //move two spaces to the left
             };
             if(this.domainOffset === this.domain * 2) {
-                this.domainOffset = 0;
+                this.domainOffset = 0; // reset the counter back to 0
             };
         };
 };
