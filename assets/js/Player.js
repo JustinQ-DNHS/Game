@@ -12,23 +12,31 @@ const PlayerAnimation = {
     s: { row: 2, frames: 40, idleFrame: { column: 7, frames: 0}}, //Goes down with 's' key
 }
 
-export class CharacterPlayer extends Character{
-    // constructors sets up Character object 
-    constructor(playerCanvas, image, speedRatio){
-        super(playerCanvas, 
-            image, 
-            speedRatio,
+export class CharacterPlayer extends Character {
+    constructor(playerCanvas, image, speedRatio) {
+        // Define the hitbox as a separate object
+        const hitbox = {
+            x: 0,
+            y: 0,
+            width: 50,
+            height: 50,
+        };
 
-            //Connects to the sprite propeties in player animation
-            PlayerAnimation.width, 
-            PlayerAnimation.height, 
-            PlayerAnimation.scale
-        );
+        super(playerCanvas, image, speedRatio, PlayerAnimation.width, PlayerAnimation.height, PlayerAnimation.scale);
+
+        // Now set the hitbox property of the character
+        this.hitbox = hitbox;
+
         this.isIdle = true;
-
-        //Properties that control the player's vertical motion
         this.velocityY = 0;
         this.gravity = 5;
+    }
+
+    //Updates the Position of the hitbox to match the player
+    updateHitbox() {
+        this.hitbox.x = this.x
+        this.hitbox.y = this.y
+        console.log('Hitbox:', this.hitbox); //logs the position of the hitbox
     }
 
     // Player perform a unique update
