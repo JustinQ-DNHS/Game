@@ -68,6 +68,19 @@ playerSprite: /images/Game/robotSpritesheet.png
         const enemySpeedRatio = 0.7 // Controls speed of enemy (unused currently)
         var enemyObj = initEnemy(enemyCanvas, enemyImg, enemySpeedRatio);
 
+        //Checks for collision between the player & enemy
+        function checkCollisions(playerObj, enemyObj) {
+        if (
+            playerObj.hitbox.x < enemyObj.hitbox.x + enemyObj.hitbox.width &&
+            playerObj.hitbox.x + playerObj.hitbox.width > enemyObj.hitbox.x &&
+            playerObj.hitbox.y < enemyObj.hitbox.y + enemyObj.hitbox.height &&
+            playerObj.hitbox.y + playerObj.hitbox.height > enemyObj.hitbox.y
+        ) {
+            //If there is collision, log "Collision"
+            console.log("Collision");
+        }
+    }
+
         // Game loop
         function gameLoop() {
             //Draws and updates background animation
@@ -85,6 +98,9 @@ playerSprite: /images/Game/robotSpritesheet.png
             //Updates Hitboxes for both the player & enemy
             playerObj.updateHitbox();
             enemyObj.updateHitbox();
+
+            //Checks for collisions between the player and enemy
+            checkCollisions(playerObj, enemyObj);
 
             requestAnimationFrame(gameLoop);  // cycle the game, aka recursion
         }
