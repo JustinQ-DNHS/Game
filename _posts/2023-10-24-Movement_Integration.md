@@ -77,6 +77,9 @@ type: tangible
         switch (keyCode) {
             case 65: // "A" Key
             case 37:
+                if (state !== "runLeft") {
+                    state = "runLeftStart"
+                }
                 console.log('left down')
                 break;
             case 83:
