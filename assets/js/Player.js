@@ -53,13 +53,9 @@ export class CharacterPlayer extends Character {
 
         //Logic for moving the Player Upwards
         } else if (this.frameY === PlayerAnimation.w.row && !this.isIdle) {
-            this.y += this.velocityY;
-            this.velocityY -= this.gravity;
-
-            // Prevents player from moving above the canvas
-            if (this.y < 0) {
-                this.y = 0;
-                this.velocity = 0;
+            if (this.y === 523.6) { // Check if the player is at y-position 523.6
+                this.y += this.velocityY;
+                this.velocityY -= this.gravity;
             }
         }
 
@@ -90,7 +86,7 @@ export function initPlayer(canvasId, image, gameSpeed, speedRatio) {
 
     // Player Screen Position
     player.setX(100);
-    player.setY(500);
+    player.setY(523.6);
 
     // New event listeners for keydown and keyup events
     addEventListener('keydown', ({ keyCode }) => {
