@@ -82,8 +82,9 @@ playerSprite: /images/Game/robotSpritesheet.png
             enemyObj.update();
             enemyObj.draw();
 
-            //Updates Hitbox to match player position
+            //Updates Hitboxes for both the player & enemy
             playerObj.updateHitbox();
+            enemyObj.updateHitbox();
 
             requestAnimationFrame(gameLoop);  // cycle the game, aka recursion
         }
