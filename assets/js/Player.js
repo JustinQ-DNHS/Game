@@ -6,7 +6,10 @@ const PlayerAnimation = {
     scale: 0.15,
     width: 798,
     height: 735,
+
+    //Animations
     idle: { row: 0, frames: 20, idleFrame: { column: 7, frames: 0 } }, //Default Animation when idle
+    death: {row: 2, frames: 40, idleFrame: {column: 7, frames: 0}}, //Animation when colliding with enemy
 	d: { row: 0, frames: 20, idleFrame: { column: 7, frames: 0 } }, // Walk right with 'd' key
     w: { row: 1, frames: 32, idleFrame: {column: 7, frames: 0}}, // Jump up with 'w' key
 	a: { row: 6, frames: 10, idleFrame: { column: 7, frames: 0 } }, // Walk left with 'a' key
@@ -52,10 +55,7 @@ export class CharacterPlayer extends Character {
 
         //Logic for moving the Player Upwards
         } else if (this.frameY === PlayerAnimation.w.row && !this.isIdle) {
-            if (this.y === 523.6) { // Check if the player is at y-position 523.6
-                this.y += this.velocityY;
-                this.velocityY -= this.gravity;
-            }
+            this.y -= (GameEnv.bottom * .33);
         }
 
         // Update animation frameX of the object
