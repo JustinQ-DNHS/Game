@@ -11,10 +11,27 @@ const enemyAnimation = {
 // Enemy class
 export class Enemy extends Character {
     constructor(enemyCanvas, image, speedRatio, domain, domainOffset) {
+        //Defines Dimension of Enemy Hitbox
+        const hitbox = {
+            width: 300,
+            height: 300,
+        };
+
         super (enemyCanvas, image, speedRatio, enemyAnimation.width, enemyAnimation.height, enemyAnimation.scale);
+        
+        //Hitbox is now a property of enemy
+        this.hitbox = hitbox;
+
         this.domain = domain; // Sets the distance that the enemy will walk before turning around
         this.domainOffset = domainOffset; // Sets the distance that the enemy will walk before turning around
         };
+
+        //Updates hitbox to match enemy position
+        updateHitbox() {
+            this.hitbox.x = this.x
+            this.hitbox.y = this.y
+            console.log('Hitbox:', this.hitbox); //logs the position of the hitbox
+        }
 
         setDomain(domain){
             this.domain = domain;
@@ -46,7 +63,7 @@ export function initEnemy(_canvasId, image, gameSpeed, speedRatio, domain, domai
         enemy.setFrameX(enemyAnimation.idle.idleFrame.column);
         enemy.setMaxFrame(enemyAnimation.idle.idleFrame.frames);
         enemy.setX(100); // Set an initial X position for the enemy
-        enemy.setY(200); // Set an initial Y position for the enemy
+        enemy.setY(512); // Set an initial Y position for the enemy
         enemy.setDomain(100); // Sets the distance that the enemy will walk before turning around
         enemy.setDomainOffset(0); // Leave at 0: the current x location of the enemy relative to its domain
     return enemy;
