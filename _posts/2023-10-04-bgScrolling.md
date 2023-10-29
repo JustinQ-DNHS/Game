@@ -1,8 +1,10 @@
 ---
-Title: Background Scrolling
-Description: Space Background Test
-Comments: true
 layout: post
+title: Background Scrolling
+toc: true
+comments: false
+type: tangibles
+courses: { compsci: {week: 2} }
 ---
 
 <style>
@@ -27,7 +29,7 @@ const maxHeight = 750 ;
 
 // Prepare Image
 const backgroundImg = new Image();
-backgroundImg.src = "/Game/images/newBackground.jpg";
+backgroundImg.src = "/Game/images/Game/newBackground.jpg";
 
 backgroundImg.onload = function () {
     const WIDTH = backgroundImg.width;
