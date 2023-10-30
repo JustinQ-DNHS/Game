@@ -5,7 +5,7 @@ const enemyAnimation = {
     scale: 0.15,
     width: 798,
     height: 735,
-    idle: { row: 3, frames: 1, idleFrame: { column: 7, frames: 0 } }, // Standing idle animation
+    attack: { row: 3, frames: 9, idleFrame: { column: 7, frames: 0 } },
 };
 
 // Enemy class
@@ -56,6 +56,13 @@ export class Enemy extends Character {
             } else if (this.domainOffset === this.domain * 2) {
                 this.domainOffset = 0; // reset the counter back to 0
             };
+
+             // Update animation frameX of the object
+            if (this.frameX < this.maxFrame) {
+                this.frameX++;
+            } else {
+                this.frameX = 0;
+            }
             console.log("enemyCanvasStyle")
             console.log(this.enemyCanvasStyle)
         };
@@ -64,9 +71,9 @@ export class Enemy extends Character {
 // Initializes the enemy 
 export function initEnemy(_canvasId, image, gameSpeed, speedRatio, domain, domainOffset) {
     var enemy = new Enemy(_canvasId, image, gameSpeed, speedRatio, domain, domainOffset);
-        enemy.setFrameY(enemyAnimation.idle.row);
-        enemy.setFrameX(enemyAnimation.idle.idleFrame.column);
-        enemy.setMaxFrame(enemyAnimation.idle.idleFrame.frames);
+        enemy.setFrameY(enemyAnimation['attack'].row);
+        enemy.setFrameX(enemyAnimation['attack'].column);
+        enemy.setMaxFrame(enemyAnimation['attack'].frames);
         enemy.setX(1450); // Set an initial X position for the enemy
         enemy.setY(520); // Set an initial Y position for the enemy
         enemy.setDomain(735); // Sets the distance that the enemy will walk before turning around
