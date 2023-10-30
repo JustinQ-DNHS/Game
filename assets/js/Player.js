@@ -19,8 +19,6 @@ export class CharacterPlayer extends Character {
     constructor(playerCanvas, image, speedRatio) {
         // Define the hitbox as a separate object
         const hitbox = {
-            //x: 0,
-            //y: 0,
             width: 50,
             height: 50,
         };
@@ -29,6 +27,11 @@ export class CharacterPlayer extends Character {
 
         //Sets the hitbox as the propety of the player
         this.hitbox = hitbox;
+
+        //When Player isn't moving, call idle animation
+        this.setFrameY(PlayerAnimation.idle.row);
+        this.setFrameX(PlayerAnimation.idle.idleFrame.column);
+        this.setMaxFrame(PlayerAnimation.idle.idleFrame.frames);
 
         this.isIdle = true;
         this.velocityY = 0;
@@ -55,7 +58,7 @@ export class CharacterPlayer extends Character {
 
         //Logic for moving the Player Upwards
         } else if (this.frameY === PlayerAnimation.w.row && !this.isIdle) {
-            this.y -= (GameEnv.bottom * .33);
+            this.y -= this.speed;
         }
 
         // Update animation frameX of the object
