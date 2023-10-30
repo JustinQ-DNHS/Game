@@ -70,16 +70,13 @@ type: tangible
                     }
                 }
             }
-        }
+            }
         const robot = new Robot();
         // Add event listener to the parent container for event delegation
         addEventListener('keydown', ({ keyCode }) => {
         switch (keyCode) {
             case 65: // "A" Key
             case 37:
-                if (state !== "runLeft") {
-                    state = "runLeftStart"
-                }
                 console.log('left down')
                 break;
             case 83:
@@ -95,7 +92,7 @@ type: tangible
                 break;
             case 87:
             case 40:
-                if (state = "idleRight" || "runRight" || "runRightStart" || "runRightEnd") {
+                if (state === "idleRight" || state === "runRight" || state === "runRightStart" || state === "runRightEnd") {
                     state = "jumpRight"
                 }
                 console.log('up down');
@@ -153,7 +150,7 @@ type: tangible
             robot.x = 100;
         }
     }
-        function animate() { //Creates a function called animate that is run after everything else is done
+    function animate() { //Creates a function called animate that is run after everything else is done
             // Creates a variable callled currentFrameRate which will equal the slider.value and make it into a whole number / integer
             // A timeout that runs a function, timeout creating the delay between each frame. Calculated by 1 second divided by currentFrameRate
             setTimeout(function () {
