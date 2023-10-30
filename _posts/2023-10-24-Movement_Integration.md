@@ -22,7 +22,7 @@ type: tangible
         const canvas = document.getElementById('spriteContainer');
         const ctx = canvas.getContext('2d');
         const SPRITE_WIDTH = 798;
-        const SPRITE_HEIGHT = 721;
+        const SPRITE_HEIGHT = 723;
         const SCALE_FACTOR = 1;
         const FRAME_RATE = 30;
         canvas.width = SPRITE_WIDTH * SCALE_FACTOR;
@@ -32,7 +32,7 @@ type: tangible
                 // Describes parameters of sprite based off the Canvas parameters, also uing the `getElementById` to reference it.
                 this.image = document.getElementById("robotSprite");
                 this.width = 798;
-                this.height = 721;
+                this.height = 723;
                 this.x = 100;
                 this.y = 0;
                 this.scale = SCALE_FACTOR;
