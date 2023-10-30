@@ -62,9 +62,9 @@ export function initEnemy(_canvasId, image, gameSpeed, speedRatio, domain, domai
         enemy.setFrameY(enemyAnimation.idle.row);
         enemy.setFrameX(enemyAnimation.idle.idleFrame.column);
         enemy.setMaxFrame(enemyAnimation.idle.idleFrame.frames);
-        enemy.setX(100); // Set an initial X position for the enemy
-        enemy.setY(512); // Set an initial Y position for the enemy
-        enemy.setDomain(100); // Sets the distance that the enemy will walk before turning around
+        enemy.setX(0); // Set an initial X position for the enemy
+        enemy.setY(520); // Set an initial Y position for the enemy
+        enemy.setDomain(750); // Sets the distance that the enemy will walk before turning around
         enemy.setDomainOffset(0); // Leave at 0: the current x location of the enemy relative to its domain
     return enemy;
 };
