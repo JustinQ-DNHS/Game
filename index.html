@@ -22,6 +22,7 @@ playerSprite: /images/Game/robotSpritesheet.png
     import { initBackground } from '{{site.baseurl}}/assets/js/Background.js';
     import { initPlayer} from '{{site.baseurl}}/assets/js/Player.js';
     import { initEnemy} from '{{site.baseurl}}/assets/js/Enemy.js';
+    import { endGame, gamePaused } from '{{site.baseurl}}/assets/js/GameOver.js';
 
     // Prepare Background Image
     const backgroundImg = new Image();
@@ -76,33 +77,35 @@ playerSprite: /images/Game/robotSpritesheet.png
             playerObj.hitbox.y < enemyObj.hitbox.y + enemyObj.hitbox.height &&
             playerObj.hitbox.y + playerObj.hitbox.height > enemyObj.hitbox.y
         ) {
-            //If there is collision, log "Collision"
-            console.log("Collision");
+            //Run endGame function
+            endGame();
         }
     }
 
         // Game loop
         function gameLoop() {
-            //Draws and updates background animation
-            backgroundObj.update();
-            backgroundObj.draw();
-            
-            //Draws and updates player animation
-            playerObj.update();
-            playerObj.draw();
-            
-            //Draws and updates enemy animation
-            enemyObj.update();
-            enemyObj.draw();
+            if (!gamePaused) {
+                //Draws and updates background animation
+                backgroundObj.update();
+                backgroundObj.draw();
+                
+                //Draws and updates player animation
+                playerObj.update();
+                playerObj.draw();
+                
+                //Draws and updates enemy animation
+                enemyObj.update();
+                enemyObj.draw();
 
-            //Updates Hitboxes for both the player & enemy
-            playerObj.updateHitbox();
-            enemyObj.updateHitbox();
+                //Updates Hitboxes for both the player & enemy
+                playerObj.updateHitbox();
+                enemyObj.updateHitbox();
 
-            //Checks for collisions between the player and enemy
-            checkCollisions(playerObj, enemyObj);
+                //Checks for collisions between the player and enemy
+                checkCollisions(playerObj, enemyObj);
 
-            requestAnimationFrame(gameLoop);  // cycle the game, aka recursion
+                requestAnimationFrame(gameLoop);  // cycle the game, aka recursion
+            }
         }
 
         // Start the game
