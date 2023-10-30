@@ -68,6 +68,15 @@ type: tangible
                     if (state === "jumpRight") {
                         state = "idleRight"
                     }
+                    if (state === "runLeftStart") {
+                        state = "runLeft"
+                    }
+                    if (state === "runLeftEnd") {
+                        state = "idleLeft"
+                    }
+                    if (state === "jumpLeft") {
+                    state = "idleLeft"
+                    }
                 }
             }
             }
@@ -77,6 +86,9 @@ type: tangible
         switch (keyCode) {
             case 65: // "A" Key
             case 37:
+                if (state !== "runLeft") {
+                    state = "runLeftStart"
+                }
                 console.log('left down')
                 break;
             case 83:
@@ -95,6 +107,9 @@ type: tangible
                 if (state === "idleRight" || state === "runRight" || state === "runRightStart" || state === "runRightEnd") {
                     state = "jumpRight"
                 }
+                if (state === "idleLeft" || state === "runLeft" || state === "runLeftStart" || state === "runRightEnd") {
+                    state = "jumpLeft"
+                }
                 console.log('up down');
                 break;
             }
@@ -103,6 +118,9 @@ type: tangible
         switch (keyCode) {
             case 65: // "A" Key
             case 37:
+                if (state ==="runLeft" || state === "runLeftStart") {
+                    state = "runLeftEnd"
+                }
                 console.log('left up')
                 break;
             case 83:
@@ -124,30 +142,70 @@ type: tangible
             robot.frameX = 0;
             robot.maxFrame = 20;
             robot.x = 100;
+            document.getElementById("spriteContainer").style.transform = "scaleX(1)";
         }
         if (state === "runRightStart") {
             robot.frameY = 6;
             robot.frameX = 0;
             robot.maxFrame = 10;
             robot.x = 100;
+            document.getElementById("spriteContainer").style.transform = "scaleX(1)";
         }
         if (state === "runRight") {
             robot.frameY = 4;
             robot.frameX = 0;
             robot.maxFrame = 18;
             robot.x = 100;
+            document.getElementById("spriteContainer").style.transform = "scaleX(1)";
         }
         if (state === "runRightEnd") {
             robot.frameY = 5;
             robot.frameX = 0;
             robot.maxFrame = 10;
             robot.x = 100;
+            document.getElementById("spriteContainer").style.transform = "scaleX(1)";
         }
         if (state === "jumpRight") {
             robot.frameY = 1;
             robot.frameX = 0;
             robot.maxFrame = 32;
             robot.x = 100;
+            document.getElementById("spriteContainer").style.transform = "scaleX(1)";
+        }
+        if (state === "idleLeft") {
+            robot.frameY = 0;
+            robot.frameX = 0;
+            robot.maxFrame = 20;
+            robot.x = 100;
+            document.getElementById("spriteContainer").style.transform = "scaleX(-1)";
+        }
+        if (state === "jumpLeft") {
+            robot.frameY = 1;
+            robot.frameX = 0;
+            robot.maxFrame = 32;
+            robot.x = 100;
+            document.getElementById("spriteContainer").style.transform = "scaleX(-1)";
+        }
+        if (state === "runLeftStart") {
+            robot.frameY = 6;
+            robot.frameX = 0;
+            robot.maxFrame = 10;
+            robot.x = 100;
+            document.getElementById("spriteContainer").style.transform = "scaleX(-1)";
+        }
+        if (state === "runLeft") {
+            robot.frameY = 4;
+            robot.frameX = 0;
+            robot.maxFrame = 18;
+            robot.x = 100;
+            document.getElementById("spriteContainer").style.transform = "scaleX(-1)";
+        }
+        if (state === "runLeftEnd") {
+            robot.frameY = 5;
+            robot.frameX = 0;
+            robot.maxFrame = 10;
+            robot.x = 100;
+            document.getElementById("spriteContainer").style.transform = "scaleX(-1)";
         }
     }
     function animate() { //Creates a function called animate that is run after everything else is done
