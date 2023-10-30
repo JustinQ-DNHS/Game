@@ -8,6 +8,10 @@ const enemyAnimation = {
     attack: { row: 3, frames: 9, idleFrame: { column: 7, frames: 0 } },
 };
 
+//Variables to Delay Animation timing
+let frameUpdateDelay = 2;
+let frameCounter = 0;
+
 // Enemy class
 export class Enemy extends Character {
     constructor(enemyCanvas, image, speedRatio, domain, domainOffset) {
@@ -43,8 +47,8 @@ export class Enemy extends Character {
         setDomainOffset(domainOffset){
             this.domainOffset = domainOffset;
         };
-
-    //update the enemy every repeat of the game loop
+        
+        //update the enemy every repeat of the game loop
         update() {
             this.domainOffset++; // "domainOffset" essentially works as a timer that counts up every second.
             if(this.domainOffset > -1 && this.domainOffset < this.domain) { // move right until the timer equals "domain"
@@ -57,14 +61,19 @@ export class Enemy extends Character {
                 this.domainOffset = 0; // reset the counter back to 0
             };
 
-             // Update animation frameX of the object
-            if (this.frameX < this.maxFrame) {
-                this.frameX++;
-            } else {
-                this.frameX = 0;
+             //Delays Frame Animation
+            frameCounter++
+            if (frameCounter >= frameUpdateDelay) {
+                //Resets FrameCount
+                frameCounter = 0;
+                
+                //Updates Animation
+                if (this.frameX < this.maxFrame) {
+                    this.frameX++;
+                } else {
+                    this.frameX = 0;
+                }
             }
-            console.log("enemyCanvasStyle")
-            console.log(this.enemyCanvasStyle)
         };
 };
 
