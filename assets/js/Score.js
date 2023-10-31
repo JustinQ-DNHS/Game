@@ -43,4 +43,4 @@ function applyScoreStyles(element) {
 window.addEventListener('load', createScoreDisplay);
 
 //Exports Functions
-export { incrementScore, score };
+export { incrementScore, getScore, score };
