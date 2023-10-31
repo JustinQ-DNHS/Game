@@ -1,4 +1,5 @@
 import Character from './Character.js';
+import { incrementScore, getScore } from './Score.js';
 
 // Creates animation for the enemy
 const enemyAnimation = {
@@ -37,7 +38,7 @@ export class Enemy extends Character {
         updateHitbox() {
             this.hitbox.x = this.x
             this.hitbox.y = this.y
-            console.log('Hitbox:', this.hitbox); //logs the position of the hitbox
+            //console.log('Hitbox:', this.hitbox); //logs the position of the hitbox
         }
 
         setDomain(domain){
@@ -59,7 +60,11 @@ export class Enemy extends Character {
                 this.enemyCanvasStyle.style.transform = 'scaleX(-1)'; //makes enemy face left
             } else if (this.domainOffset === this.domain * 2) {
                 this.domainOffset = 0; // reset the counter back to 0
-            };
+                incrementScore(); //add 5 to the score
+            //If Enemy reaches right side, add 5 to the score
+            } else if (this.domainOffset === this.domain) {
+                incrementScore();
+            }
 
              //Delays Frame Animation
             frameCounter++
