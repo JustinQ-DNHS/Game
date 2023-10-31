@@ -13,7 +13,7 @@ Character - old, outdated robot
     - Original purpose was to defend against aliens, which is why he can fight
 
 Enemies
-    - New generation of robots/tech
+    - New generation of robots/tech (named "emily")
     - Main character's "replacements"
     - aliens called "The Arokay"
     - humans trying to recycle him

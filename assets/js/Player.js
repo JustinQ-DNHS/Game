@@ -31,8 +31,8 @@ export class CharacterPlayer extends Character {
         this.hitbox = hitbox;
 
         this.isIdle = true;
-        this.velocityY = 0;
-        this.gravity = 5;
+        this.speedY = 0; //speed in the y direction up = +, down = -
+        this.gravity = 5; //strength of the gravity
     }
 
     //Updates the Position of the hitbox to match the player
@@ -48,7 +48,7 @@ export class CharacterPlayer extends Character {
         if (this.frameY === PlayerAnimation.a.row && !this.isIdle) {
             this.x -= this.speed;
         }
-
+        
         //Logic for moving the Player to the Right
         else if (this.frameY === PlayerAnimation.d.row && !this.isIdle){
             this.x += this.speed;
@@ -64,9 +64,8 @@ export class CharacterPlayer extends Character {
         } else {
             this.frameX = 0;
         }
-    }
-}
-
+    };
+};
 // Can add specific initialization parameters for the Player here
 // In this case the Player is following the default character initialization
 export function initPlayer(canvasId, image, gameSpeed, speedRatio) {
@@ -80,7 +79,7 @@ export function initPlayer(canvasId, image, gameSpeed, speedRatio) {
 
     // Player Screen Position
     player.setX(100);
-    player.setY(523.6);
+    player.setY(524);
 
     // New event listeners for keydown and keyup events
     addEventListener('keydown', ({ keyCode }) => {
@@ -99,6 +98,7 @@ export function initPlayer(canvasId, image, gameSpeed, speedRatio) {
                 player.setFrameY(PlayerAnimation['w'].row);
                 player.setMaxFrame(PlayerAnimation['w'].frames);
                 player.isIdle = false;
+                player.speedY = 20;                
                 break;
         }
     });
