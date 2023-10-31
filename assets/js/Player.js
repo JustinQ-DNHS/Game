@@ -38,8 +38,19 @@ export class CharacterPlayer extends Character {
         this.setMaxFrame(PlayerAnimation.idle.idleFrame.frames);
 
         this.isIdle = true;
+
+        //Jumping Properties
         this.velocityY = 0;
-        this.gravity = 5;
+        this.gravity = 0.5;
+        this.isJumping = false;
+    }
+
+    //Function to run when jumping is enabled
+    jump() {
+        if (!this.isJumping) {
+            this.isJumping = true;
+            this.velocityY = -10;
+        }
     }
 
     //Updates the Position of the hitbox to match the player
@@ -59,10 +70,17 @@ export class CharacterPlayer extends Character {
         //Logic for moving the Player to the Right
         else if (this.frameY === PlayerAnimation.d.row && !this.isIdle){
             this.x += this.speed;
+        }
 
         //Logic for moving the Player Upwards
-        } else if (this.frameY === PlayerAnimation.w.row && !this.isIdle) {
-            this.y -= this.speed;
+        if (this.isJumping) {
+            this.y += this.velocityY;
+            this.velocityY += this.gravity;
+
+            if (this.y >= 523.6) {
+                this.isJumping = false;
+                this.y = 523.6;
+            }
         }
 
         //Delays Frame Animation
@@ -108,6 +126,7 @@ export function initPlayer(canvasId, image, gameSpeed, speedRatio) {
                 player.isIdle = false;
                 break;
             case 87: // 'W' key
+                player.jump();
                 player.setFrameY(PlayerAnimation['w'].row);
                 player.setMaxFrame(PlayerAnimation['w'].frames);
                 player.isIdle = false;
