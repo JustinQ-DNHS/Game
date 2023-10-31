@@ -1,7 +1,6 @@
 import Character from './Character.js';
 import { incrementScore, score } from './Score.js';
 
-let spawnEnemy = 0
 // Creates animation for the enemy
 const enemyAnimation = {
     scale: 0.15,
@@ -52,23 +51,24 @@ export class Enemy extends Character {
         
         //update the enemy every repeat of the game loop
         update() {
-            this.domainOffset++; // "domainOffset" essentially works as a timer that counts up every second.
+            this.domainOffset += this.enemySpeed; // "domainOffset" essentially works as a timer that counts up every second.
             if(this.domainOffset > -1 && this.domainOffset < this.domain) { // move right until the timer equals "domain"
-                this.x += 4; // move two spaces to the right
+                this.x += this.enemySpeed; // move two spaces to the right
                 this.enemyCanvasStyle.style.transform = 'scaleX(1)'; //makes enemy face right
             } else if (this.domainOffset > this.domain && this.domainOffset < this.domain * 2) {
-                this.x -= 4; //move two spaces to the left
+                this.x -= this.enemySpeed; //move two spaces to the left
                 this.enemyCanvasStyle.style.transform = 'scaleX(-1)'; //makes enemy face left
-            } else if (this.domainOffset === this.domain * 2) {
+            } else if (this.domainOffset > this.domain * 2) {
                 this.domainOffset = 0; // reset the counter back to 0
                 incrementScore(); //add 5 to the score
             //If Enemy reaches right side, add 5 to the score
             } else if (this.domainOffset === this.domain) {
                 incrementScore();
             }
-            if(score===10) {
-                spawnEnemy = 1
-            }
+            if(score===10 && this.enemySpeed===4) {
+                this.enemySpeed += 4;
+                console.log(this.enemySpeed)
+            };
 
              //Delays Frame Animation
             frameCounter++
@@ -87,15 +87,16 @@ export class Enemy extends Character {
 };
 
 // Initializes the enemy 
-export function initEnemy(_canvasId, image, gameSpeed, speedRatio, domain, domainOffset) {
-    var enemy = new Enemy(_canvasId, image, gameSpeed, speedRatio, domain, domainOffset);
+export function initEnemy(_canvasId, image, gameSpeed, speedRatio, domain, domainOffset, enemySpeed) {
+    var enemy = new Enemy(_canvasId, image, gameSpeed, speedRatio, domain, domainOffset, enemySpeed);
         enemy.setFrameY(enemyAnimation['attack'].row);
         enemy.setFrameX(enemyAnimation['attack'].column);
         enemy.setMaxFrame(enemyAnimation['attack'].frames);
-        enemy.setX(1450); // Set an initial X position for the enemy
+        enemy.setX(1200); // Set an initial X position for the enemy
         enemy.setY(520); // Set an initial Y position for the enemy
-        enemy.setDomain(368); // Sets the distance that the enemy will walk before turning around
-        enemy.setDomainOffset(368); // Leave at 0: the current x location of the enemy relative to its domain
+        enemy.setDomain(1200); // Sets the distance that the enemy will walk before turning around
+        enemy.setDomainOffset(1200); // The current x location of the enemy relative to its domain
+        enemy.enemySpeed = 4; // the speed of the enemy
     return enemy;
 };
 
