@@ -15,6 +15,10 @@ const PlayerAnimation = {
 	a: { row: 6, frames: 10, idleFrame: { column: 7, frames: 0 } }, // Walk left with 'a' key
 }
 
+//Variables to Delay Animation timing
+let frameUpdateDelay = 2;
+let frameCounter = 0;
+
 export class CharacterPlayer extends Character {
     constructor(playerCanvas, image, speedRatio) {
         // Define the hitbox as a separate object
@@ -42,7 +46,7 @@ export class CharacterPlayer extends Character {
     updateHitbox() {
         this.hitbox.x = this.x
         this.hitbox.y = this.y
-        console.log('Hitbox:', this.hitbox); //logs the position of the hitbox
+        //console.log('Hitbox:', this.hitbox); //logs the position of the hitbox
     }
 
     // Player perform a unique update
@@ -61,11 +65,16 @@ export class CharacterPlayer extends Character {
             this.y -= this.speed;
         }
 
-        // Update animation frameX of the object
-        if (this.frameX < this.maxFrame) {
-            this.frameX++;
-        } else {
-            this.frameX = 0;
+        //Delays Frame Animation
+        frameCounter++
+        if (frameCounter >= frameUpdateDelay) {
+            frameCounter = 0;
+            // Update animation frameX of the object
+            if (this.frameX < this.maxFrame) {
+                this.frameX++;
+            } else {
+                this.frameX = 0;
+            }
         }
     }
 }
