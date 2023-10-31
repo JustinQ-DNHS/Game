@@ -43,13 +43,18 @@ export class CharacterPlayer extends Character {
         this.velocityY = 0;
         this.gravity = 0.5;
         this.isJumping = false;
+
+        //Variable for Flipping the Player Left & Right
+        this.isFacingRight = true;
+        const playerCanvasStyle =  document.getElementById("characters"); //Gets the canvas specified to the player 
+        this.playerCanvasStyle = playerCanvasStyle //Canvas Style is now a property of the player
     }
 
     //Function to run when jumping is enabled
     jump() {
         if (!this.isJumping) {
             this.isJumping = true;
-            this.velocityY = -10;
+            this.velocityY = -15;
         }
     }
 
@@ -81,6 +86,13 @@ export class CharacterPlayer extends Character {
                 this.isJumping = false;
                 this.y = 523.6;
             }
+        }
+
+        //Logic for making player face left or right
+        if (this.isFacingRight) {
+            this.playerCanvasStyle.style.transform = 'scaleX(1)'; // Player faces right
+        } else {
+            this.playerCanvasStyle.style.transform = 'scaleX(-1)'; // Player faces left (flipped)
         }
 
         //Delays Frame Animation
@@ -119,11 +131,13 @@ export function initPlayer(canvasId, image, gameSpeed, speedRatio) {
                 player.setFrameY(PlayerAnimation['a'].row);
                 player.setMaxFrame(PlayerAnimation['a'].frames);
                 player.isIdle = false;
+                player.isFacingRight = false;
                 break;
             case 68: // 'D' key
                 player.setFrameY(PlayerAnimation['d'].row);
                 player.setMaxFrame(PlayerAnimation['d'].frames);
                 player.isIdle = false;
+                player.isFacingRight = true;
                 break;
             case 87: // 'W' key
                 player.jump();
@@ -140,7 +154,7 @@ export function initPlayer(canvasId, image, gameSpeed, speedRatio) {
             case 68: // 'D' key
             case 87: // 'W' key
             case 83: // 'S' key
-                // When any movement key is released, set isIdle to true
+                //When there is no movement, player is idle and activate idle animation
                 player.isIdle = true;
                 player.setFrameY(PlayerAnimation['idle'].row);
                 player.setMaxFrame(PlayerAnimation['idle'].frames);
