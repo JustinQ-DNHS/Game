@@ -37,9 +37,8 @@ export class CharacterPlayer extends Character {
         this.setFrameX(PlayerAnimation.idle.idleFrame.column);
         this.setMaxFrame(PlayerAnimation.idle.idleFrame.frames);
 
+        //Player is Idle on initialization
         this.isIdle = true;
-        this.speedY = 0; //speed in the y direction up = +, down = -
-        this.gravity = 5; //strength of the gravity
 
         //Jumping Properties
         this.velocityY = 0;
@@ -144,8 +143,7 @@ export function initPlayer(canvasId, image, gameSpeed, speedRatio) {
                 player.jump();
                 player.setFrameY(PlayerAnimation['w'].row);
                 player.setMaxFrame(PlayerAnimation['w'].frames);
-                player.isIdle = false;
-                player.speedY = 20;                
+                player.isIdle = false;               
                 break;
         }
     });
