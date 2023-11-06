@@ -16,13 +16,25 @@ playerSprite: /images/Game/robotSpritesheet.png
     }
 </style>
 
+<!--Connects audio id to actual audio file-->
+<audio id="winnerSound" src="{{site.baseurl}}/assets/audio/winner.wav" preload="auto"></audio>
+
 <script type="module">
+    
+    //Function for Sound
+    let sound = 0;
+    function playWinnerSound() {
+        const winnerSound = document.getElementById("winnerSound");
+        winnerSound.play();
+    }
+
     //Import code from other files and apply it to the file
     import GameEnv from '{{site.baseurl}}/assets/js/GameEnv.js';
     import { initBackground } from '{{site.baseurl}}/assets/js/Background.js';
     import { initPlayer} from '{{site.baseurl}}/assets/js/Player.js';
     import { initEnemy} from '{{site.baseurl}}/assets/js/Enemy.js';
     import { endGame, gamePaused } from '{{site.baseurl}}/assets/js/GameOver.js';
+    import {getScore, score} from '{{site.baseurl}}/assets/js/Score.js';
 
     // Prepare Background Image
     const backgroundImg = new Image();
@@ -52,7 +64,7 @@ playerSprite: /images/Game/robotSpritesheet.png
     document.body.appendChild(enemyCanvas);
     
     // Setup Globals
-    GameEnv.gameSpeed = 2; //Controls game speed (player, background, enemies)
+    GameEnv.gameSpeed = 4; //Controls game speed (player, background, enemies)
     GameEnv.controls = document.getElementById("controls");
 
     //Applies background functionality and updates game animation
@@ -85,6 +97,14 @@ playerSprite: /images/Game/robotSpritesheet.png
         // Game loop
         function gameLoop() {
             if (!gamePaused) {
+
+                // Check if the score reaches 20
+                if (getScore() === 20) {
+                    if (!sound)
+                        playWinnerSound()
+                        sound = 1;
+                }
+                
                 //Draws and updates background animation
                 backgroundObj.update();
                 backgroundObj.draw();
